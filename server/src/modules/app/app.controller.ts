@@ -1,4 +1,6 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { GetHelloWorldAppControllerSwaggerDocs } from 'src/shared';
 import { HttpResponses } from '../../shared/utils/responses/http';
 import { AppService } from './app.service';
 
@@ -6,9 +8,11 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @ApiTags('App')
   @HttpCode(HttpStatus.OK)
+  @GetHelloWorldAppControllerSwaggerDocs()
   @Get()
-  getHello() {
+  public async getHello() {
     try {
       return HttpResponses.parseSuccess(
         this.appService.getHello(),
