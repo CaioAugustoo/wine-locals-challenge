@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RedisService } from 'src/config/redis';
+
+import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
@@ -11,14 +12,14 @@ import { RestaurantsRepository } from './restaurants.repository';
 @Injectable()
 export class RedisRestaurantRepository implements IRestaurantsRepository {
   public constructor(
-    private readonly redisService: RedisService,
+    @InjectRedis() private readonly redis: Redis,
     private readonly restaurantsRepository: RestaurantsRepository,
   ) {}
 
   private async createRestaurantCacheByName(
     restaurant: CreateRestaurantDtoOutput,
   ): Promise<void> {
-    await this.redisService.set(
+    await this.redis.set(
       `restaurants:${restaurant.name}`,
       JSON.stringify(restaurant),
     );
@@ -27,7 +28,7 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
   private async createRestaurantCacheById(
     restaurant: CreateRestaurantDtoOutput,
   ): Promise<void> {
-    await this.redisService.set(
+    await this.redis.set(
       `restaurants:${restaurant.id}`,
       JSON.stringify(restaurant),
     );
@@ -51,7 +52,9 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
   public async findByName(
     name: string,
   ): Promise<FindRestaurantByNameDtoOutput> {
-    const cachedRestaurant = await this.redisService.get(`restaurants:${name}`);
+    const cachedRestaurant = await this.redis.get(`restaurants:${name}`);
+
+    console.log(cachedRestaurant);
 
     if (cachedRestaurant) {
       return JSON.parse(cachedRestaurant);

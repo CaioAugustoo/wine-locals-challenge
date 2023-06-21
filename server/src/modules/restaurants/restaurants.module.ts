@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { RedisService } from 'src/config/redis';
+
 import { PrismaService } from '../../config/prisma';
 import { RedisRestaurantRepository } from './redis.repository';
 import { RestaurantsController } from './restaurants.controller';
@@ -10,7 +10,6 @@ import { RestaurantsService } from './restaurants.service';
   controllers: [RestaurantsController],
   providers: [
     RestaurantsService,
-    RedisService,
     PrismaService,
     RestaurantsRepository,
     RedisRestaurantRepository,
