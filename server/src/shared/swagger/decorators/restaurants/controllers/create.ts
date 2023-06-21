@@ -1,5 +1,5 @@
 import { HttpStatus, applyDecorators } from '@nestjs/common';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 export function CreateRestaurantControllerSwaggerDocs() {
   const summary = ApiOperation({
@@ -15,7 +15,7 @@ export function CreateRestaurantControllerSwaggerDocs() {
         message: null,
         data: {
           id: '23f70675-6bae-48b8-815c-95fbbce6691d',
-          name: 'Silva Lanches',
+          name: 'XXXX',
         },
       },
     },
@@ -27,15 +27,24 @@ export function CreateRestaurantControllerSwaggerDocs() {
       example: {
         ok: false,
         error: true,
-        message: 'Restaurant "silva Lanches" already exists',
+        message: 'Restaurant XXX" already exists',
         data: null,
         status: HttpStatus.BAD_REQUEST,
       },
     },
   });
 
+  const payload = ApiBody({
+    schema: {
+      example: {
+        name: 'My Restaurant',
+      },
+    },
+  });
+
   return applyDecorators(
     summary,
+    payload,
     successResponse,
     alreadyExistsWithSameNameResponse,
   );
