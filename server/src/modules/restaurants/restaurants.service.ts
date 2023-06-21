@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
-import { CreateRestaurantDto } from './dto/create-restaurant.dto';
-import { UpdateRestaurantDto } from './dto/update-restaurant.dto';
+import {
+  CreateRestaurantDto,
+  CreateRestaurantDtoOutput,
+  createRestaurantDtoSchema,
+} from './dto/create-restaurant.dto';
+
+import { RestaurantsRepository } from './restaurants.repository';
+
+import { HttpException } from '../../shared/exceptions';
+import { Zod } from '../../shared/utils/zod/validations';
 
 @Injectable()
 export class RestaurantsService {
-  create(createRestaurantDto: CreateRestaurantDto) {
-    return 'This action adds a new restaurant';
+  constructor(private readonly restaurantsRepository: RestaurantsRepository) {}
+
+  public async create(
+    createRestaurantDto: CreateRestaurantDto,
+  ): CreateRestaurantDtoOutput {
+    const payload = Zod.parseAndValidate(
+      createRestaurantDtoSchema,
+      createRestaurantDto,
+    );
+
+    const alreadyExistsRestaurant =
+      await this.alreadyExistsRestaurantWithSameName(payload.name);
+
+    if (alreadyExistsRestaurant) {
+      throw new HttpException(`Restaurant ${payload.name} already exists`, 400);
+    }
+
+    return this.restaurantsRepository.create(payload);
   }
 
-  findAll() {
-    return `This action returns all restaurants`;
-  }
+  private async alreadyExistsRestaurantWithSameName(
+    name: string,
+  ): Promise<boolean> {
+    const restaurant = await this.restaurantsRepository.findByName(name);
 
-  findOne(id: number) {
-    return `This action returns a #${id} restaurant`;
-  }
+    if (!restaurant) {
+      return false;
+    }
 
-  update(id: number, updateRestaurantDto: UpdateRestaurantDto) {
-    return `This action updates a #${id} restaurant`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} restaurant`;
+    return restaurant.name === name;
   }
 }
