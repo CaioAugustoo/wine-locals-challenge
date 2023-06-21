@@ -39,12 +39,13 @@ export class RestaurantsService {
   private async alreadyExistsRestaurantWithSameName(
     name: string,
   ): Promise<boolean> {
-    const restaurant = await this.redisRestaurantRepository.findByName(name);
+    const foundRestaurantByName =
+      await this.redisRestaurantRepository.findByName(name);
 
-    if (!restaurant) {
+    if (!foundRestaurantByName) {
       return false;
     }
 
-    return restaurant.name === name;
+    return foundRestaurantByName.name === name;
   }
 }
