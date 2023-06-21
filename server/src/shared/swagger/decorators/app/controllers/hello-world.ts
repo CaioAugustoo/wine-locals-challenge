@@ -7,7 +7,7 @@ export function GetHelloWorldAppControllerSwaggerDocs() {
   });
 
   const successResponse = ApiResponse({
-    status: HttpStatus.CREATED,
+    status: HttpStatus.OK,
     schema: {
       example: {
         ok: true,
