@@ -54,8 +54,6 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
   ): Promise<FindRestaurantByNameDtoOutput> {
     const cachedRestaurant = await this.redis.get(`restaurants:${name}`);
 
-    console.log(cachedRestaurant);
-
     if (cachedRestaurant) {
       return JSON.parse(cachedRestaurant);
     }
