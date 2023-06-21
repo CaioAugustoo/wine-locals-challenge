@@ -5,7 +5,13 @@ import { AppModule } from './modules/app/app.module';
 const PORT = process.env.PORT || 3001;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {});
+  const app = await NestFactory.create(AppModule, {
+    cors: process.env.CORS_ENABLED === 'true',
+  });
+
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN,
+  });
 
   const config = new DocumentBuilder()
     .addBearerAuth()
