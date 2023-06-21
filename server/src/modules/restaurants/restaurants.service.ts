@@ -5,8 +5,6 @@ import {
   createRestaurantDtoSchema,
 } from './dto/create-restaurant.dto';
 
-import { RestaurantsRepository } from './restaurants.repository';
-
 import { HttpException } from '../../shared/exceptions';
 import { Zod } from '../../shared/utils/zod/validations';
 import { RedisRestaurantRepository } from './redis.repository';
@@ -14,7 +12,6 @@ import { RedisRestaurantRepository } from './redis.repository';
 @Injectable()
 export class RestaurantsService {
   public constructor(
-    private readonly restaurantsRepository: RestaurantsRepository,
     private readonly redisRestaurantRepository: RedisRestaurantRepository,
   ) {}
 
@@ -36,22 +33,19 @@ export class RestaurantsService {
       );
     }
 
-    const createdRestaurant = await this.redisRestaurantRepository.create(
-      payload,
-    );
-
-    return createdRestaurant;
+    return this.redisRestaurantRepository.create(payload);
   }
 
   private async alreadyExistsRestaurantWithSameName(
     name: string,
   ): Promise<boolean> {
-    const restaurant = await this.redisRestaurantRepository.findByName(name);
+    const foundRestaurantByName =
+      await this.redisRestaurantRepository.findByName(name);
 
-    if (!restaurant) {
+    if (!foundRestaurantByName) {
       return false;
     }
 
-    return restaurant.name === name;
+    return foundRestaurantByName.name === name;
   }
 }
