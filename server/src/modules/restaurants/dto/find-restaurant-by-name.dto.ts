@@ -8,8 +8,8 @@ interface RestaurantDish {
   price: Dish['price'];
 }
 
-export type FindRestaurantByNameDtoOutput = Promise<{
+export type FindRestaurantByNameDtoOutput = {
   id: Restaurant['id'];
   name: Restaurant['name'];
   Dish: RestaurantDish[];
-}>;
+};

@@ -9,14 +9,18 @@ import { RestaurantsRepository } from './restaurants.repository';
 
 import { HttpException } from '../../shared/exceptions';
 import { Zod } from '../../shared/utils/zod/validations';
+import { RedisRestaurantRepository } from './redis.repository';
 
 @Injectable()
 export class RestaurantsService {
-  constructor(private readonly restaurantsRepository: RestaurantsRepository) {}
+  public constructor(
+    private readonly restaurantsRepository: RestaurantsRepository,
+    private readonly redisRestaurantRepository: RedisRestaurantRepository,
+  ) {}
 
   public async create(
     createRestaurantDto: CreateRestaurantDto,
-  ): CreateRestaurantDtoOutput {
+  ): Promise<CreateRestaurantDtoOutput> {
     const payload = Zod.parseAndValidate(
       createRestaurantDtoSchema,
       createRestaurantDto,
@@ -32,13 +36,17 @@ export class RestaurantsService {
       );
     }
 
-    return this.restaurantsRepository.create(payload);
+    const createdRestaurant = await this.redisRestaurantRepository.create(
+      payload,
+    );
+
+    return createdRestaurant;
   }
 
   private async alreadyExistsRestaurantWithSameName(
     name: string,
   ): Promise<boolean> {
-    const restaurant = await this.restaurantsRepository.findByName(name);
+    const restaurant = await this.redisRestaurantRepository.findByName(name);
 
     if (!restaurant) {
       return false;

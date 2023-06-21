@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/database/prisma.service';
+import { PrismaService } from '../../config/prisma';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
@@ -9,9 +9,11 @@ import { IRestaurantsRepository } from './interfaces/restaurants.repository';
 
 @Injectable()
 export class RestaurantsRepository implements IRestaurantsRepository {
-  constructor(private readonly prismaService: PrismaService) {}
+  public constructor(private readonly prismaService: PrismaService) {}
 
-  public async create(dto: CreateRestaurantDto): CreateRestaurantDtoOutput {
+  public async create(
+    dto: CreateRestaurantDto,
+  ): Promise<CreateRestaurantDtoOutput> {
     return this.prismaService.restaurant.create({
       data: {
         name: dto.name,
@@ -23,7 +25,9 @@ export class RestaurantsRepository implements IRestaurantsRepository {
     });
   }
 
-  public async findByName(name: string): FindRestaurantByNameDtoOutput {
+  public async findByName(
+    name: string,
+  ): Promise<FindRestaurantByNameDtoOutput> {
     return this.prismaService.restaurant.findUnique({
       where: {
         name,

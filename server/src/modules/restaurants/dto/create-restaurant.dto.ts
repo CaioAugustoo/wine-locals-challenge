@@ -12,7 +12,7 @@ export const createRestaurantDtoSchema = z.object({
 
 export type CreateRestaurantDto = z.infer<typeof createRestaurantDtoSchema>;
 
-export type CreateRestaurantDtoOutput = Promise<{
+export type CreateRestaurantDtoOutput = {
   id: Restaurant['id'];
   name: Restaurant['name'];
-}>;
+};

@@ -8,7 +8,7 @@ import { RestaurantsService } from './restaurants.service';
 @Controller('restaurants')
 @ApiTags('Restaurants')
 export class RestaurantsController {
-  constructor(private readonly restaurantsService: RestaurantsService) {}
+  public constructor(private readonly restaurantsService: RestaurantsService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @CreateRestaurantControllerSwaggerDocs()
