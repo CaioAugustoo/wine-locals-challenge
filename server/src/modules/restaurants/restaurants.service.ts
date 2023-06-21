@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
@@ -26,7 +26,10 @@ export class RestaurantsService {
       await this.alreadyExistsRestaurantWithSameName(payload.name);
 
     if (alreadyExistsRestaurant) {
-      throw new HttpException(`Restaurant ${payload.name} already exists`, 400);
+      throw new HttpException(
+        `Restaurant "${payload.name}" already exists`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
     return this.restaurantsRepository.create(payload);
