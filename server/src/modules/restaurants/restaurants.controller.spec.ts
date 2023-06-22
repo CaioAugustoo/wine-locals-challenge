@@ -1,6 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
+import { createDishDtoMock } from '../../shared/mocks/dishes';
 import { DishesService } from '../dishes/dishes.service';
+import { PaginatedDishesDtoOutput } from '../dishes/dto/list-all-dishes.dto';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantsController } from './restaurants.controller';
 import { RestaurantsService } from './restaurants.service';
@@ -8,6 +10,7 @@ import { RestaurantsService } from './restaurants.service';
 describe('RestaurantsController', () => {
   let controller: RestaurantsController;
   let service: RestaurantsService;
+  let dishesService: DishesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -42,6 +45,7 @@ describe('RestaurantsController', () => {
 
     controller = module.get<RestaurantsController>(RestaurantsController);
     service = module.get<RestaurantsService>(RestaurantsService);
+    dishesService = module.get<DishesService>(DishesService);
   });
 
   describe('create', () => {
@@ -90,6 +94,63 @@ describe('RestaurantsController', () => {
       } catch (err) {
         expect(err.message).toEqual('Restaurant not found');
       }
+    });
+  });
+
+  describe('listAllDishes', () => {
+    it('should return a list of dishes', async () => {
+      const restaurantId = randomUUID();
+
+      const params = {
+        id: restaurantId,
+      };
+
+      const query = {
+        limit: 10,
+        page: 1,
+      };
+
+      const dishes = await controller.listAllDishes(params, query);
+
+      expect(dishes.data).toEqual([]);
+    });
+
+    it("should paginate dishes if 'page' query param is provided", async () => {
+      const dishes = createDishDtoMock(10);
+
+      let output: PaginatedDishesDtoOutput = {
+        dishes: dishes,
+        totalCount: dishes.length,
+      };
+
+      jest.spyOn(dishesService, 'listAll').mockResolvedValueOnce(output);
+
+      const restaurantId = randomUUID();
+
+      const params = {
+        id: restaurantId,
+      };
+
+      const query = {
+        page: 1,
+      };
+
+      let response = await controller.listAllDishes(params, query);
+
+      expect(response.data).toEqual(output);
+
+      output = {
+        dishes: [],
+        totalCount: dishes.length + 1,
+      };
+
+      query.page = 21;
+
+      jest.spyOn(dishesService, 'listAll').mockResolvedValueOnce(output);
+
+      response = await controller.listAllDishes(params, query);
+
+      expect(response.data.dishes).toHaveLength(0);
     });
   });
 });

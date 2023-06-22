@@ -12,9 +12,11 @@ import { ApiTags } from '@nestjs/swagger';
 import {
   CreateRestaurantControllerSwaggerDocs,
   FindRestaurantByIdControllerSwaggerDocs,
+  ListAllRestaurantDishesontrollerSwaggerDocs,
 } from '../../shared/swagger';
 import { HttpResponses } from '../../shared/utils/responses';
 import { DishesService } from '../dishes/dishes.service';
+import { CreateDishDto } from '../dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantsService } from './restaurants.service';
 
@@ -55,22 +57,40 @@ export class RestaurantsController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @ListAllRestaurantDishesontrollerSwaggerDocs()
   @Get(':id/dishes')
   public async listAllDishes(
     @Param() params: { id: string },
     @Query()
     query: {
       page: number;
-      limit: number;
     },
   ) {
     try {
       const dishes = await this.dishesService.listAll({
         restaurantId: params.id,
-        ...query,
+        page: query.page,
       });
 
       return HttpResponses.parseSuccess(dishes, HttpStatus.OK);
+    } catch (err) {
+      HttpResponses.throwException(err, err?.status);
+    }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post(':id/dishes')
+  public async createDish(
+    @Param() params: { id: string },
+    @Body() body: Omit<CreateDishDto, 'restaurantId'>,
+  ) {
+    try {
+      const dish = await this.dishesService.create({
+        ...body,
+        restaurantId: params.id,
+      });
+
+      return HttpResponses.parseSuccess(dish, HttpStatus.CREATED);
     } catch (err) {
       HttpResponses.throwException(err, err?.status);
     }
