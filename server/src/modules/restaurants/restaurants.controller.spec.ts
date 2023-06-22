@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
+import { DishesService } from '../dishes/dishes.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantsController } from './restaurants.controller';
 import { RestaurantsService } from './restaurants.service';
@@ -21,6 +22,19 @@ describe('RestaurantsController', () => {
             alreadyExistsRestaurantWithSameName: jest.fn(() =>
               Promise.resolve(false),
             ),
+            findById: jest.fn(() =>
+              Promise.resolve({
+                id: randomUUID(),
+                name: 'Restaurant 1',
+                dishes: [],
+              }),
+            ),
+          },
+        },
+        {
+          provide: DishesService,
+          useValue: {
+            listAll: jest.fn(() => Promise.resolve([])),
           },
         },
       ],
@@ -53,6 +67,26 @@ describe('RestaurantsController', () => {
         expect(err.message).toEqual('Restaurant "Restaurant 1" already exists');
         expect(err.status).toEqual(400);
       }
+    });
+  });
+
+  describe('findById', () => {
+    it('should return a restaurant with dishes', async () => {
+      const restaurantId = randomUUID();
+
+      const foundRestaurant = await controller.findById({ id: restaurantId });
+
+      expect(foundRestaurant.data.id).toBeDefined();
+      expect(foundRestaurant.data.name).toBeDefined();
+      expect(foundRestaurant.data.dishes).toBeDefined();
+    });
+
+    it('should return data as null if restaurant does not exists', async () => {
+      jest.spyOn(service, 'findById').mockResolvedValue(null);
+
+      const response = await controller.findById({ id: randomUUID() });
+
+      console.log(response);
     });
   });
 });

@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
-import { Restaurant } from '@prisma/client';
-import { GET_RESTAURANTS_CACHE_KEY } from 'src/shared/constants/cache';
+import { GET_RESTAURANTS_CACHE_KEY } from '../../shared/constants/cache';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
@@ -33,7 +32,7 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
     );
   }
 
-  private async getFromCache(value: string): Promise<Restaurant | null> {
+  private async getFromCache<T>(value: string): Promise<T | null> {
     const cachedRestaurant = await this.redis.get(
       GET_RESTAURANTS_CACHE_KEY(value),
     );
@@ -46,7 +45,9 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
       return null;
     }
 
-    const cachedRestaurant = await this.getFromCache(id);
+    const cachedRestaurant = await this.getFromCache<FindRestaurantByIdOutput>(
+      id,
+    );
 
     if (!cachedRestaurant) {
       const foundRestaurant = await this.restaurantsRepository.findById(id);
@@ -79,7 +80,8 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
   public async findByName(
     name: string,
   ): Promise<FindRestaurantByNameDtoOutput> {
-    const cachedRestaurant = await this.getFromCache(name);
+    const cachedRestaurant =
+      await this.getFromCache<FindRestaurantByNameDtoOutput>(name);
 
     if (!cachedRestaurant) {
       const foundRestaurant = await this.restaurantsRepository.findByName(name);
