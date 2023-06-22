@@ -56,10 +56,9 @@ describe('RestaurantsService', () => {
     });
 
     it("should throw an error if the restaurant's name already exists", async () => {
-      jest.spyOn(repository, 'findByName').mockResolvedValue({
-        ...createRestaurantDtoOutput,
-        dish: [],
-      });
+      jest
+        .spyOn(repository, 'findByName')
+        .mockResolvedValue(createRestaurantDtoOutput);
 
       try {
         await service.create(createRestaurantDto);
@@ -89,7 +88,6 @@ describe('RestaurantsService', () => {
       jest.spyOn(repository, 'findByName').mockResolvedValue({
         id: '1',
         name: createRestaurantDto.name,
-        dish: [],
       });
 
       expect(
