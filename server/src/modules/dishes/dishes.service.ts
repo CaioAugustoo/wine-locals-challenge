@@ -23,7 +23,7 @@ export class DishesService {
   public async create(dto: CreateDishDto): Promise<CreateDishDtoOutput> {
     const payload = Zod.parseAndValidate(createDishDtoSchema, dto);
 
-    await this.restaurantsService.findById(dto.restaurantId);
+    await this.restaurantsService.findById(payload.restaurantId);
 
     return this.redisDishesRepository.create(payload);
   }
