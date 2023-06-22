@@ -8,7 +8,10 @@ import {
   Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateRestaurantControllerSwaggerDocs } from '../../shared/swagger';
+import {
+  CreateRestaurantControllerSwaggerDocs,
+  FindRestaurantByIdControllerSwaggerDocs,
+} from '../../shared/swagger';
 import { HttpResponses } from '../../shared/utils/responses';
 import { DishesService } from '../dishes/dishes.service';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -38,6 +41,7 @@ export class RestaurantsController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @FindRestaurantByIdControllerSwaggerDocs()
   @Get(':id')
   public async findById(@Param() params: { id: string }) {
     try {
