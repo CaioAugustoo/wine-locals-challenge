@@ -81,12 +81,16 @@ describe('RestaurantsController', () => {
       expect(foundRestaurant.data.dishes).toBeDefined();
     });
 
-    it('should return data as null if restaurant does not exists', async () => {
-      jest.spyOn(service, 'findById').mockResolvedValue(null);
+    it('should catch error if restaurant does not exist', async () => {
+      jest.spyOn(service, 'findById').mockImplementation(() => {
+        throw new Error('Restaurant not found');
+      });
 
-      const response = await controller.findById({ id: randomUUID() });
-
-      console.log(response);
+      try {
+        await controller.findById({ id: randomUUID() });
+      } catch (err) {
+        expect(err.message).toEqual('Restaurant not found');
+      }
     });
   });
 });
