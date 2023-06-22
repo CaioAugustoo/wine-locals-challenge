@@ -2,9 +2,12 @@ import { Injectable } from '@nestjs/common';
 
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { Dish } from '@prisma/client';
-import { GET_RESTAURANT_DISHES_CACHE_KEY } from '../../shared/constants/cache';
+import {
+  GET_RESTAURANT_DISHES_CACHE_KEY,
+  GET_TOTAL_DISHES_CACHE_KEY,
+} from '../../shared/constants/cache';
 import { DishesRepository } from './dishes.repository';
-import { ListDishesDtoOutput } from './dto/list-restaurants-dishes.dto';
+import { ListDishesDto, ListDishesDtoOutput } from './dto/list-all-dishes.dto';
 import { IDishesRepository } from './interfaces/dishes.repository';
 
 @Injectable()
@@ -14,27 +17,55 @@ export class RedisDishesRepository implements IDishesRepository {
     private readonly dishesRepository: DishesRepository,
   ) {}
 
-  private async insertIntoCache(restaurantId: string, dishes: Dish[]) {
+  private async insertAIntoCache(dto: ListDishesDto, dishes: Dish[]) {
     await this.redis.set(
-      GET_RESTAURANT_DISHES_CACHE_KEY(restaurantId),
+      GET_RESTAURANT_DISHES_CACHE_KEY(dto),
       JSON.stringify(dishes),
     );
   }
 
-  private async getFromCache(restaurantId: string): Promise<Dish[]> {
+  private async getAllFromCache(dto: ListDishesDto): Promise<Dish[]> {
     const cachedDishes = await this.redis.get(
-      GET_RESTAURANT_DISHES_CACHE_KEY(restaurantId),
+      GET_RESTAURANT_DISHES_CACHE_KEY(dto),
     );
 
     return cachedDishes ? JSON.parse(cachedDishes) : [];
   }
 
-  public async listAll(restaurantId: string): Promise<ListDishesDtoOutput> {
-    const cachedDishes = await this.getFromCache(restaurantId);
+  private async setTotalIntoCache(restaurantId: string, total: number) {
+    await this.redis.set(
+      GET_TOTAL_DISHES_CACHE_KEY(restaurantId),
+      JSON.stringify(total),
+    );
+  }
+
+  private async getTotalFromCache(restaurantId: string): Promise<number> {
+    const cachedTotal = await this.redis.get(
+      GET_TOTAL_DISHES_CACHE_KEY(restaurantId),
+    );
+
+    return cachedTotal ? JSON.parse(cachedTotal) : 0;
+  }
+
+  public async countTotal(restaurantId: string): Promise<number> {
+    const cachedTotal = await this.getTotalFromCache(restaurantId);
+
+    if (!cachedTotal) {
+      const total = await this.dishesRepository.countTotal(restaurantId);
+
+      await this.setTotalIntoCache(restaurantId, total);
+      return total;
+    }
+
+    return cachedTotal;
+  }
+
+  public async listAll(dto: ListDishesDto): Promise<ListDishesDtoOutput> {
+    const cachedDishes = await this.getAllFromCache(dto);
 
     if (!cachedDishes.length) {
-      await this.insertIntoCache(restaurantId, cachedDishes);
-      return this.dishesRepository.listAll(restaurantId);
+      await this.insertAIntoCache(dto, cachedDishes);
+      return this.dishesRepository.listAll(dto);
     }
 
     return cachedDishes;

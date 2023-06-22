@@ -1,5 +1,5 @@
-import { ListDishesDtoOutput } from '../dto/list-restaurants-dishes.dto';
+import { ListDishesDto, ListDishesDtoOutput } from '../dto/list-all-dishes.dto';
 
 export interface IDishesRepository {
-  listAll(restaurantId: string): Promise<ListDishesDtoOutput>;
+  listAll(dto: ListDishesDto): Promise<ListDishesDtoOutput>;
 }

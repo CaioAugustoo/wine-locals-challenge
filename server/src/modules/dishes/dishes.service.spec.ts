@@ -17,12 +17,17 @@ describe('DishesService', () => {
           provide: RedisDishesRepository,
           useValue: {
             listAll: jest.fn(),
+            countTotal: jest.fn(),
           },
         },
         {
           provide: RestaurantsService,
           useValue: {
-            findById: jest.fn(),
+            findById: jest.fn(() => ({
+              id: 'restaurantId',
+              name: 'Restaurant 1',
+              dishes: [],
+            })),
           },
         },
       ],
@@ -42,20 +47,20 @@ describe('DishesService', () => {
       );
     });
 
-    it('should call restaurantsService.findById', async () => {
-      const restaurantId = 'restaurantId';
+    it('should return dishes and totalCount', async () => {
+      const listAllSpy = jest
+        .spyOn(redisDishesRepository, 'listAll')
+        .mockResolvedValueOnce([]);
 
-      await dishesService.listAll(restaurantId);
+      const countTotalSpy = jest
+        .spyOn(redisDishesRepository, 'countTotal')
+        .mockResolvedValueOnce(0);
 
-      expect(restaurantsService.findById).toHaveBeenCalledWith(restaurantId);
-    });
+      const result = await dishesService.listAll({ restaurantId: 'id' });
 
-    it('should call redisDishesRepository.listAll', async () => {
-      const restaurantId = 'restaurantId';
-
-      await dishesService.listAll(restaurantId);
-
-      expect(redisDishesRepository.listAll).toHaveBeenCalledWith(restaurantId);
+      expect(listAllSpy).toHaveBeenCalledWith({ restaurantId: 'id' });
+      expect(countTotalSpy).toHaveBeenCalledWith('id');
+      expect(result).toEqual({ dishes: [], totalCount: 0 });
     });
   });
 });

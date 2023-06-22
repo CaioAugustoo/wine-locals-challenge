@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import {
@@ -55,9 +56,19 @@ export class RestaurantsController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id/dishes')
-  public async listAllDishes(@Param() params: { id: string }) {
+  public async listAllDishes(
+    @Param() params: { id: string },
+    @Query()
+    query: {
+      page: number;
+      limit: number;
+    },
+  ) {
     try {
-      const dishes = await this.dishesService.listAll(params.id);
+      const dishes = await this.dishesService.listAll({
+        restaurantId: params.id,
+        ...query,
+      });
 
       return HttpResponses.parseSuccess(dishes, HttpStatus.OK);
     } catch (err) {
