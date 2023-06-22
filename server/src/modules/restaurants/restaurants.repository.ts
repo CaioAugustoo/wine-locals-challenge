@@ -4,6 +4,7 @@ import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
 } from './dto/create-restaurant.dto';
+import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
 import { FindRestaurantByNameDtoOutput } from './dto/find-restaurant-by-name.dto';
 import { IRestaurantsRepository } from './interfaces/restaurants.repository';
 
@@ -21,6 +22,18 @@ export class RestaurantsRepository implements IRestaurantsRepository {
       select: {
         id: true,
         name: true,
+      },
+    });
+  }
+
+  public async findById(id: string): Promise<FindRestaurantByIdOutput> {
+    if (!id) {
+      return null;
+    }
+
+    return this.prismaService.restaurant.findUnique({
+      where: {
+        id,
       },
     });
   }

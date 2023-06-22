@@ -7,6 +7,7 @@ import {
 
 import { HttpException } from '../../shared/exceptions';
 import { Zod } from '../../shared/utils/zod/validations';
+import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
 import { RedisRestaurantRepository } from './redis.repository';
 
 @Injectable()
@@ -34,6 +35,16 @@ export class RestaurantsService {
     }
 
     return this.redisRestaurantRepository.create(payload);
+  }
+
+  public async findById(id: string): Promise<FindRestaurantByIdOutput> {
+    const foundRestaurant = await this.redisRestaurantRepository.findById(id);
+
+    if (!foundRestaurant) {
+      throw new HttpException('Restaurant not found', HttpStatus.NOT_FOUND);
+    }
+
+    return foundRestaurant;
   }
 
   public async alreadyExistsRestaurantWithSameName(
