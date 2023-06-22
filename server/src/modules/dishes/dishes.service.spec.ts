@@ -7,7 +7,6 @@ import { RedisDishesRepository } from './redis.repository';
 describe('DishesService', () => {
   let dishesService: DishesService;
   let redisDishesRepository: RedisDishesRepository;
-  let restaurantsService: RestaurantsService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
@@ -37,7 +36,6 @@ describe('DishesService', () => {
     redisDishesRepository = module.get<RedisDishesRepository>(
       RedisDishesRepository,
     );
-    restaurantsService = module.get<RestaurantsService>(RestaurantsService);
   });
 
   describe('listAll', () => {
