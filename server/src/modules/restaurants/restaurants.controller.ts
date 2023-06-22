@@ -19,8 +19,6 @@ export class RestaurantsController {
         createRestaurantDto,
       );
 
-      console.log(restaurant);
-
       return HttpResponses.parseSuccess(restaurant, HttpStatus.CREATED);
     } catch (err) {
       HttpResponses.throwException(err, err?.status);
