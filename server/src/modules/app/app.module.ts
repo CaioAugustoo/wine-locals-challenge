@@ -3,6 +3,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { LoggerMiddleware } from 'src/shared';
+import { DishesModule } from '../dishes/dishes.module';
 import { RestaurantsModule } from '../restaurants/restaurants.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,6 +11,7 @@ import { AppService } from './app.service';
 @Module({
   imports: [
     RestaurantsModule,
+    DishesModule,
     ConfigModule.forRoot(),
     ThrottlerModule.forRoot({
       ttl: Number(process.env.THROTTLER_LIMIT_TTL) ?? 60,

@@ -19,6 +19,7 @@ describe('RestaurantsService', () => {
           useValue: {
             create: jest.fn(),
             findByName: jest.fn(),
+            findById: jest.fn(),
           },
         },
       ],
@@ -95,6 +96,31 @@ describe('RestaurantsService', () => {
           createRestaurantDto.name,
         ),
       ).toEqual(true);
+    });
+  });
+
+  describe('findById', () => {
+    it('should throw error if restaurant does not exist', async () => {
+      jest.spyOn(repository, 'findById').mockResolvedValue(null);
+
+      try {
+        await service.findById('1');
+      } catch (err) {
+        expect(err.message).toEqual('Restaurant not found');
+        expect(err.status).toEqual(404);
+      }
+    });
+
+    it('should return restaurant if it exists', async () => {
+      const restaurant = {
+        id: '1',
+        name: 'Restaurant 1',
+        dishes: [],
+      };
+
+      jest.spyOn(repository, 'findById').mockResolvedValue(restaurant);
+
+      expect(await service.findById('1')).toEqual(restaurant);
     });
   });
 });
