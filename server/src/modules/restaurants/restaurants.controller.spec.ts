@@ -71,14 +71,13 @@ describe('RestaurantsController', () => {
   });
 
   describe('findById', () => {
-    it('should return a restaurant with dishes', async () => {
+    it('should return a restaurant correctly', async () => {
       const restaurantId = randomUUID();
 
       const foundRestaurant = await controller.findById({ id: restaurantId });
 
       expect(foundRestaurant.data.id).toBeDefined();
       expect(foundRestaurant.data.name).toBeDefined();
-      expect(foundRestaurant.data.dishes).toBeDefined();
     });
 
     it('should catch error if restaurant does not exist', async () => {
