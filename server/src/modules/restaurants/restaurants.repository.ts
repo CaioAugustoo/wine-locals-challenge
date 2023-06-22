@@ -35,7 +35,7 @@ export class RestaurantsRepository implements IRestaurantsRepository {
       select: {
         id: true,
         name: true,
-        Dish: {
+        dish: {
           select: {
             id: true,
             createdAt: true,
