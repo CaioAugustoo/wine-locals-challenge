@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { RedisDishesRepository } from '../dishes/redis.repository';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
@@ -20,6 +21,12 @@ describe('RestaurantsService', () => {
             create: jest.fn(),
             findByName: jest.fn(),
             findById: jest.fn(),
+          },
+        },
+        {
+          provide: RedisDishesRepository,
+          useValue: {
+            countTotal: jest.fn(),
           },
         },
       ],
