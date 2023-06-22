@@ -32,19 +32,6 @@ export class RestaurantsRepository implements IRestaurantsRepository {
       where: {
         name,
       },
-      select: {
-        id: true,
-        name: true,
-        dish: {
-          select: {
-            id: true,
-            createdAt: true,
-            description: true,
-            name: true,
-            price: true,
-          },
-        },
-      },
     });
   }
 }
