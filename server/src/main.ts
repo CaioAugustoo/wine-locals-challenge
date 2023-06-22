@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './modules/app/app.module';
+import { ApiKeyGuard } from './shared';
 
 const PORT = process.env.PORT || 3001;
 
@@ -8,6 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: process.env.CORS_ENABLED === 'true',
   });
+
+  app.useGlobalGuards(new ApiKeyGuard());
 
   app.enableCors({
     origin: process.env.CORS_ORIGIN,
