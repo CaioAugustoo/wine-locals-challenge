@@ -28,7 +28,7 @@ export function FindRestaurantByIdControllerSwaggerDocs() {
       example: {
         ok: false,
         error: true,
-        message: 'Restauran not found',
+        message: 'Restaurant not found',
         data: null,
         status: HttpStatus.NOT_FOUND,
       },
