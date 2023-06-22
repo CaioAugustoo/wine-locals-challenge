@@ -16,7 +16,7 @@ export function FindRestaurantByIdControllerSwaggerDocs() {
         data: {
           id: '23f70675-6bae-48b8-815c-95fbbce6691d',
           name: 'XXXX',
-          dishes: [],
+          createdAt: '2021-08-01T00:00:00.000Z',
         },
       },
     },
