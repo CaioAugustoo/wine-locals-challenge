@@ -6,6 +6,7 @@ import {
   GET_RESTAURANTS_CACHE_KEY,
   GET_RESTAURANT_DISHES_CACHE_KEY,
   GET_TOTAL_DISHES_CACHE_KEY,
+  REDIS_TTL_IN_SECONDS,
 } from '../../shared/constants/cache';
 import { DishesRepository } from './dishes.repository';
 import { CreateDishDto, CreateDishDtoOutput } from './dto/create-dish.dto';
@@ -38,6 +39,8 @@ export class RedisDishesRepository implements IDishesRepository {
     await this.redis.set(
       GET_RESTAURANT_DISHES_CACHE_KEY(dto),
       JSON.stringify(dishes),
+      'EX',
+      REDIS_TTL_IN_SECONDS,
     );
   }
 
@@ -48,6 +51,8 @@ export class RedisDishesRepository implements IDishesRepository {
       await this.redis.set(
         GET_TOTAL_DISHES_CACHE_KEY(restaurantId),
         JSON.stringify(cachedTotal + 1),
+        'EX',
+        REDIS_TTL_IN_SECONDS,
       );
     }
   }
@@ -64,6 +69,8 @@ export class RedisDishesRepository implements IDishesRepository {
     await this.redis.set(
       GET_TOTAL_DISHES_CACHE_KEY(restaurantId),
       JSON.stringify(total),
+      'EX',
+      REDIS_TTL_IN_SECONDS,
     );
   }
 
