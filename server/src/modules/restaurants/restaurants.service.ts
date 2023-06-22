@@ -7,13 +7,15 @@ import {
 
 import { HttpException } from '../../shared/exceptions';
 import { Zod } from '../../shared/utils/zod/validations';
-import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
+import { RedisDishesRepository } from '../dishes/redis.repository';
+import { FindRestaurantWithTotalDishesOutput } from './dto/find-restaurant-by-id.dto';
 import { RedisRestaurantRepository } from './redis.repository';
 
 @Injectable()
 export class RestaurantsService {
   public constructor(
     private readonly redisRestaurantRepository: RedisRestaurantRepository,
+    private readonly redisDishesRepository: RedisDishesRepository,
   ) {}
 
   public async create(
@@ -37,14 +39,21 @@ export class RestaurantsService {
     return this.redisRestaurantRepository.create(payload);
   }
 
-  public async findById(id: string): Promise<FindRestaurantByIdOutput> {
+  public async findById(
+    id: string,
+  ): Promise<FindRestaurantWithTotalDishesOutput> {
     const foundRestaurant = await this.redisRestaurantRepository.findById(id);
 
     if (!foundRestaurant) {
       throw new HttpException('Restaurant not found', HttpStatus.NOT_FOUND);
     }
 
-    return foundRestaurant;
+    const totalDishes = await this.redisDishesRepository.countTotal(id);
+
+    return {
+      totalDishes,
+      ...foundRestaurant,
+    };
   }
 
   public async alreadyExistsRestaurantWithSameName(
