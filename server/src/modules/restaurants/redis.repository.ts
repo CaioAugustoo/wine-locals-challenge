@@ -66,12 +66,12 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
 
     const data = {
       ...createdRestaurant,
-      dishes: [],
+      totalDishes: 0,
     };
 
     await Promise.all([
+      this.insertIntoCache(data, 'id'),
       this.insertIntoCache(data, 'name'),
-      this.insertIntoCache(data),
     ]);
 
     return data;
