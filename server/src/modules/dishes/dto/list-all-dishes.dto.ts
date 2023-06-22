@@ -2,7 +2,6 @@ import { Dish } from '@prisma/client';
 
 export type ListDishesDto = {
   page?: number;
-  limit?: number;
   restaurantId: string;
 };
 
