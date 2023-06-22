@@ -1,3 +1,7 @@
-import { Restaurant } from '@prisma/client';
+import { Dish, Restaurant } from '@prisma/client';
 
-export type FindRestaurantByIdOutput = Restaurant | null;
+export type FindRestaurantByIdOutput =
+  | ({
+      dishes: Dish[];
+    } & Omit<Restaurant, 'createdAt'>)
+  | null;
