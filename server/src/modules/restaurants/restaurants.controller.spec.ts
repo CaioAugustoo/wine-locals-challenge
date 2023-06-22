@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
-import { createDishDtoMock } from '../../shared/mocks/dishes';
+import { createDishesMock } from '../../shared/mocks/dishes';
 import { DishesService } from '../dishes/dishes.service';
 import { PaginatedDishesDtoOutput } from '../dishes/dto/list-all-dishes.dto';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
@@ -116,7 +116,7 @@ describe('RestaurantsController', () => {
     });
 
     it("should paginate dishes if 'page' query param is provided", async () => {
-      const dishes = createDishDtoMock(10);
+      const dishes = createDishesMock(10);
 
       let output: PaginatedDishesDtoOutput = {
         dishes: dishes,

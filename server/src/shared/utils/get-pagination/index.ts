@@ -10,12 +10,11 @@ export interface Result {
 
 export const getPagination = (
   page: string | number = DEFAULT_PAGINATION_PAGE,
-  limit = DEFAULT_PAGINATION_LIMIT,
 ): Result => {
-  const skip = (Number(page) - 1) * limit;
+  const skip = (Number(page) - 1) * DEFAULT_PAGINATION_LIMIT;
 
   return {
     skip,
-    take: limit,
+    take: DEFAULT_PAGINATION_LIMIT,
   };
 };
