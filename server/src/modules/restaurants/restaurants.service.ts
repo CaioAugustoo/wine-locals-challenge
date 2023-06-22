@@ -36,7 +36,7 @@ export class RestaurantsService {
     return this.redisRestaurantRepository.create(payload);
   }
 
-  private async alreadyExistsRestaurantWithSameName(
+  public async alreadyExistsRestaurantWithSameName(
     name: string,
   ): Promise<boolean> {
     const foundRestaurantByName =
