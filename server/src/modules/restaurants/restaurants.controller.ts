@@ -51,9 +51,9 @@ export class RestaurantsController {
 
   @HttpCode(HttpStatus.OK)
   @Get(':id/dishes')
-  public async listAllDishes(@Param() restaurantId: string) {
+  public async listAllDishes(@Param() params: { id: string }) {
     try {
-      const dishes = await this.dishesService.listAll(restaurantId);
+      const dishes = await this.dishesService.listAll(params.id);
 
       return HttpResponses.parseSuccess(dishes, HttpStatus.OK);
     } catch (err) {
