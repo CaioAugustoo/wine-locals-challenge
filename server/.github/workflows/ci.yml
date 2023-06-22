@@ -1,11 +1,5 @@
 name: ci
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'server/**'
-      - 'shared/**'
+on: [pull_request]
 
 jobs:
   build:
