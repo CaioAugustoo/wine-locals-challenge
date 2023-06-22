@@ -14,7 +14,7 @@ model Restaurant {
   id        String   @id @unique() @default(uuid())
   name      String   @unique()
   createdAt DateTime @default(now())
-  Dish      Dish[]
+  dish      Dish[]
 
   @@map("restaurants")
 }

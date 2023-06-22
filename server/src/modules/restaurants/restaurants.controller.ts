@@ -1,7 +1,7 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { CreateRestaurantControllerSwaggerDocs } from 'src/shared';
-import { HttpResponses } from 'src/shared/utils/responses';
+import { CreateRestaurantControllerSwaggerDocs } from '../../shared/swagger';
+import { HttpResponses } from '../../shared/utils/responses';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantsService } from './restaurants.service';
 

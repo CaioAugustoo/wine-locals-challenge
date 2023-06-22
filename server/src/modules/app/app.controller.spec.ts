@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toEqual({
+    it('should return "Hello World!"', async () => {
+      expect(await appController.getHello()).toEqual({
         status: 200,
         ok: true,
         error: null,
