@@ -11,3 +11,7 @@ export const GET_TOTAL_DISHES_CACHE_KEY = (restaurantId: string) =>
 
 export const GET_RESTAURANTS_CACHE_KEY = (value: string) =>
   `restaurants:${value}`;
+
+export const REDIS_TTL_IN_SECONDS = Number(
+  process.env.REDIS_TTL_IN_SECONDS ?? 60,
+);
