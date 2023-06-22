@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { Dish } from '@prisma/client';
 import {
+  GET_RESTAURANTS_CACHE_KEY,
   GET_RESTAURANT_DISHES_CACHE_KEY,
   GET_TOTAL_DISHES_CACHE_KEY,
 } from '../../shared/constants/cache';
@@ -21,11 +22,13 @@ export class RedisDishesRepository implements IDishesRepository {
   public async create(dto: CreateDishDto): Promise<CreateDishDtoOutput> {
     const createdDish = await this.dishesRepository.create(dto);
 
-    const { restaurantId } = dto;
+    const { restaurantId, name: restaurantName } = dto;
 
     await Promise.all([
       this.incrementTotalIntoCache(restaurantId),
-      this.redis.del(GET_RESTAURANT_DISHES_CACHE_KEY({ restaurantId })),
+      this.redis.del(GET_RESTAURANTS_CACHE_KEY(restaurantId)),
+      this.redis.del(GET_RESTAURANTS_CACHE_KEY(restaurantName)),
+      this.redis.del(GET_TOTAL_DISHES_CACHE_KEY(restaurantId)),
     ]);
 
     return createdDish;

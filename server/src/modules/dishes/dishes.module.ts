@@ -17,7 +17,6 @@ import { RedisDishesRepository } from './redis.repository';
     RedisRestaurantRepository,
     RedisDishesRepository,
     RestaurantsRepository,
-    RedisRestaurantRepository,
   ],
 })
 export class DishesModule {}
