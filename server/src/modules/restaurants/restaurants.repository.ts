@@ -31,11 +31,25 @@ export class RestaurantsRepository implements IRestaurantsRepository {
       return null;
     }
 
-    return this.prismaService.restaurant.findUnique({
+    const foundRestaurant = await this.prismaService.restaurant.findUnique({
       where: {
         id,
       },
+      select: {
+        createdAt: false,
+        id: true,
+        name: true,
+        dish: true,
+      },
     });
+
+    if (!foundRestaurant) {
+      return null;
+    }
+
+    const { dish, ...restaurant } = foundRestaurant;
+
+    return { ...restaurant, dishes: dish };
   }
 
   public async findByName(
