@@ -29,6 +29,7 @@ export class RedisDishesRepository implements IDishesRepository {
       this.incrementTotalIntoCache(restaurantId),
       this.redis.del(GET_RESTAURANTS_CACHE_KEY(restaurantId)),
       this.redis.del(GET_RESTAURANTS_CACHE_KEY(restaurantName)),
+      this.redis.del(GET_RESTAURANT_DISHES_CACHE_KEY({ restaurantId })),
       this.redis.del(GET_TOTAL_DISHES_CACHE_KEY(restaurantId)),
     ]);
 
