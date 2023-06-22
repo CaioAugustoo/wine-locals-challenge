@@ -69,4 +69,34 @@ describe('RestaurantsService', () => {
       }
     });
   });
+
+  describe('alreadyExistsRestaurantWithSameName', () => {
+    const createRestaurantDto: CreateRestaurantDto = {
+      name: 'Restaurant 1',
+    };
+
+    it('should return false if the restaurant with the same name does not exist', async () => {
+      jest.spyOn(repository, 'findByName').mockResolvedValue(null);
+
+      expect(
+        await service.alreadyExistsRestaurantWithSameName(
+          createRestaurantDto.name,
+        ),
+      ).toEqual(false);
+    });
+
+    it('should return true if the restaurant with the same name exists', async () => {
+      jest.spyOn(repository, 'findByName').mockResolvedValue({
+        id: '1',
+        name: createRestaurantDto.name,
+        dish: [],
+      });
+
+      expect(
+        await service.alreadyExistsRestaurantWithSameName(
+          createRestaurantDto.name,
+        ),
+      ).toEqual(true);
+    });
+  });
 });
