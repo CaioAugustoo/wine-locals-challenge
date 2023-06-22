@@ -7,6 +7,7 @@ import {
   GET_TOTAL_DISHES_CACHE_KEY,
 } from '../../shared/constants/cache';
 import { DishesRepository } from './dishes.repository';
+import { CreateDishDto, CreateDishDtoOutput } from './dto/create-dish.dto';
 import { ListDishesDto, ListDishesDtoOutput } from './dto/list-all-dishes.dto';
 import { IDishesRepository } from './interfaces/dishes.repository';
 
@@ -17,11 +18,35 @@ export class RedisDishesRepository implements IDishesRepository {
     private readonly dishesRepository: DishesRepository,
   ) {}
 
-  private async insertAIntoCache(dto: ListDishesDto, dishes: Dish[]) {
+  public async create(dto: CreateDishDto): Promise<CreateDishDtoOutput> {
+    const createdDish = await this.dishesRepository.create(dto);
+
+    const { restaurantId } = dto;
+
+    await Promise.all([
+      this.incrementTotalIntoCache(restaurantId),
+      this.redis.del(GET_RESTAURANT_DISHES_CACHE_KEY({ restaurantId })),
+    ]);
+
+    return createdDish;
+  }
+
+  private async insertIntoCache(dto: ListDishesDto, dishes: Dish[]) {
     await this.redis.set(
       GET_RESTAURANT_DISHES_CACHE_KEY(dto),
       JSON.stringify(dishes),
     );
+  }
+
+  private async incrementTotalIntoCache(restaurantId: string) {
+    const cachedTotal = await this.getTotalFromCache(restaurantId);
+
+    if (cachedTotal) {
+      await this.redis.set(
+        GET_TOTAL_DISHES_CACHE_KEY(restaurantId),
+        JSON.stringify(cachedTotal + 1),
+      );
+    }
   }
 
   private async getAllFromCache(dto: ListDishesDto): Promise<Dish[]> {
@@ -64,8 +89,10 @@ export class RedisDishesRepository implements IDishesRepository {
     const cachedDishes = await this.getAllFromCache(dto);
 
     if (!cachedDishes.length) {
-      await this.insertAIntoCache(dto, cachedDishes);
-      return this.dishesRepository.listAll(dto);
+      const allDishes = await this.dishesRepository.listAll(dto);
+      await this.insertIntoCache(dto, allDishes);
+
+      return allDishes;
     }
 
     return cachedDishes;
