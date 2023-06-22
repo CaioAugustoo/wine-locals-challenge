@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
+import { Restaurant } from '@prisma/client';
+import { GET_RESTAURANTS_CACHE_KEY } from 'src/shared/constants/cache';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
 } from './dto/create-restaurant.dto';
+import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
 import { FindRestaurantByNameDtoOutput } from './dto/find-restaurant-by-name.dto';
 import { IRestaurantsRepository } from './interfaces/restaurants.repository';
 import { RestaurantsRepository } from './restaurants.repository';
@@ -16,22 +19,43 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
     private readonly restaurantsRepository: RestaurantsRepository,
   ) {}
 
-  private async createRestaurantCacheByName(
+  private async insertIntoCache(
     restaurant: CreateRestaurantDtoOutput,
+    key: 'id' | 'name' = 'id',
   ): Promise<void> {
+    if (!restaurant?.[key]) {
+      return;
+    }
+
     await this.redis.set(
-      `restaurants:${restaurant.name}`,
+      GET_RESTAURANTS_CACHE_KEY(restaurant[key]),
       JSON.stringify(restaurant),
     );
   }
 
-  private async createRestaurantCacheById(
-    restaurant: CreateRestaurantDtoOutput,
-  ): Promise<void> {
-    await this.redis.set(
-      `restaurants:${restaurant.id}`,
-      JSON.stringify(restaurant),
+  private async getFromCache(value: string): Promise<Restaurant | null> {
+    const cachedRestaurant = await this.redis.get(
+      GET_RESTAURANTS_CACHE_KEY(value),
     );
+
+    return cachedRestaurant ? JSON.parse(cachedRestaurant) : null;
+  }
+
+  public async findById(id: string): Promise<FindRestaurantByIdOutput> {
+    if (!id) {
+      return null;
+    }
+
+    const cachedRestaurant = await this.getFromCache(id);
+
+    if (!cachedRestaurant) {
+      const foundRestaurant = await this.restaurantsRepository.findById(id);
+
+      await this.insertIntoCache(foundRestaurant);
+      return foundRestaurant;
+    }
+
+    return cachedRestaurant;
   }
 
   public async create(
@@ -39,25 +63,31 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
   ): Promise<CreateRestaurantDtoOutput> {
     const createdRestaurant = await this.restaurantsRepository.create(dto);
 
+    const data = {
+      ...createdRestaurant,
+      dishes: [],
+    };
+
     await Promise.all([
-      this.createRestaurantCacheByName(createdRestaurant),
-      this.createRestaurantCacheById(createdRestaurant),
+      this.insertIntoCache(data, 'name'),
+      this.insertIntoCache(data),
     ]);
 
-    const { id, name } = createdRestaurant;
-
-    return { id, name };
+    return data;
   }
 
   public async findByName(
     name: string,
   ): Promise<FindRestaurantByNameDtoOutput> {
-    const cachedRestaurant = await this.redis.get(`restaurants:${name}`);
+    const cachedRestaurant = await this.getFromCache(name);
 
-    if (cachedRestaurant) {
-      return JSON.parse(cachedRestaurant);
+    if (!cachedRestaurant) {
+      const foundRestaurant = await this.restaurantsRepository.findByName(name);
+
+      await this.insertIntoCache(foundRestaurant, 'name');
+      return foundRestaurant;
     }
 
-    return this.restaurantsRepository.findByName(name);
+    return cachedRestaurant;
   }
 }
