@@ -1,9 +1,10 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import { GetHelloWorldAppControllerSwaggerDocs } from '../../shared/swagger';
 import { HttpResponses } from '../../shared/utils/responses/http';
 import { AppService } from './app.service';
 
+@ApiSecurity('api_key')
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
