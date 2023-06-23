@@ -3,6 +3,12 @@ name: Main CI/CD Workflow
 on:
   pull_request:
     branches: []
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
 
 jobs:
   server:
