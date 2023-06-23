@@ -13,7 +13,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       
       - name: Run Base Server CI
-        uses: ./.github/workflows/base.yml
+        uses: .github/workflows/base.yml
