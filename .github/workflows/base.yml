@@ -6,14 +6,14 @@ jobs:
   server:
     name: Server CI/CD
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ secrets.token }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Trigger Server Workflow
+        env:
+        GH_TOKEN: ${{ secrets.token }}
         run: |
           cd server
           gh workflow run .github/workflows/base.yml
