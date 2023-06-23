@@ -6,11 +6,11 @@ on:
 
 jobs:
   server:
-    name: Server Worklow
+    name: Server Workflow
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
         with:
           path: ./server
