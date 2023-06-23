@@ -3,7 +3,7 @@ name: Combined Workflow
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   server:
