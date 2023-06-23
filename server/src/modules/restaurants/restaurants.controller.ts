@@ -8,12 +8,13 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiSecurity, ApiTags } from '@nestjs/swagger';
 import {
   CreateRestaurantControllerSwaggerDocs,
   CreateRestaurantDishControllerSwaggerDocs,
   FindRestaurantByIdControllerSwaggerDocs,
-  ListAllRestaurantDishesontrollerSwaggerDocs,
+  ListAllRestaurantDishesControllerSwaggerDocs,
+  ListAllRestaurantsControllerSwaggerDocs,
 } from '../../shared/swagger';
 import { HttpResponses } from '../../shared/utils/responses';
 import { DishesService } from '../dishes/dishes.service';
@@ -21,8 +22,9 @@ import { CreateDishDto } from '../dishes/dto/create-dish.dto';
 import { CreateRestaurantDto } from './dto/create-restaurant.dto';
 import { RestaurantsService } from './restaurants.service';
 
-@Controller('restaurants')
+@ApiSecurity('api_key')
 @ApiTags('Restaurants')
+@Controller('restaurants')
 export class RestaurantsController {
   public constructor(
     private readonly restaurantsService: RestaurantsService,
@@ -58,7 +60,7 @@ export class RestaurantsController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @ListAllRestaurantDishesontrollerSwaggerDocs()
+  @ListAllRestaurantDishesControllerSwaggerDocs()
   @Get(':id/dishes')
   public async listAllDishes(
     @Param() params: { id: string },
@@ -74,6 +76,26 @@ export class RestaurantsController {
       });
 
       return HttpResponses.parseSuccess(dishes, HttpStatus.OK);
+    } catch (err) {
+      HttpResponses.throwException(err, err?.status);
+    }
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @ListAllRestaurantsControllerSwaggerDocs()
+  @Get()
+  public async listAllRestaurants(
+    @Query()
+    query: {
+      page: number;
+    },
+  ) {
+    try {
+      const restaurants = await this.restaurantsService.listAll({
+        page: query.page,
+      });
+
+      return HttpResponses.parseSuccess(restaurants, HttpStatus.OK);
     } catch (err) {
       HttpResponses.throwException(err, err?.status);
     }

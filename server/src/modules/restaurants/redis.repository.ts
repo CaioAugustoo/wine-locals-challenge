@@ -8,6 +8,10 @@ import {
 } from './dto/create-restaurant.dto';
 import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
 import { FindRestaurantByNameDtoOutput } from './dto/find-restaurant-by-name.dto';
+import {
+  ListAllRestaurantsByIdDto,
+  ListAllRestaurantsByIdDtoOutput,
+} from './dto/list-all-restaurants-by-id.dto';
 import { IRestaurantsRepository } from './interfaces/restaurants.repository';
 import { RestaurantsRepository } from './restaurants.repository';
 
@@ -91,5 +95,41 @@ export class RedisRestaurantRepository implements IRestaurantsRepository {
     }
 
     return cachedRestaurant;
+  }
+
+  public async listAll(
+    dto: ListAllRestaurantsByIdDto,
+  ): Promise<ListAllRestaurantsByIdDtoOutput> {
+    const cachedRestaurants = await this.redis.get(
+      GET_RESTAURANTS_CACHE_KEY(`list-all-${dto.page ?? 1}`),
+    );
+
+    if (!cachedRestaurants) {
+      const restaurants = await this.restaurantsRepository.listAll(dto);
+
+      await this.redis.set(
+        GET_RESTAURANTS_CACHE_KEY(`list-all-${dto.page ?? 1}`),
+        JSON.stringify(restaurants),
+      );
+
+      return restaurants;
+    }
+
+    return this.restaurantsRepository.listAll(dto);
+  }
+
+  public async countTotal(): Promise<number> {
+    const cachedTotal = await this.redis.get(
+      GET_RESTAURANTS_CACHE_KEY('total'),
+    );
+
+    if (!cachedTotal) {
+      const total = await this.restaurantsRepository.countTotal();
+
+      await this.redis.set(GET_RESTAURANTS_CACHE_KEY('total'), total);
+      return total;
+    }
+
+    return this.restaurantsRepository.countTotal();
   }
 }

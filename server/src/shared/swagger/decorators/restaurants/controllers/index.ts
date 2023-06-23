@@ -1,4 +1,5 @@
 export * from './create';
-export * from './create-dish';
+export * from './dishes';
+export * from './dishes/list-all';
 export * from './find-by-id';
-export * from './list-all-dishes';
+export * from './list-all';

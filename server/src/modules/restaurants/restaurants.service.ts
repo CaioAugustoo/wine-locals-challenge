@@ -9,6 +9,10 @@ import { HttpException } from '../../shared/exceptions';
 import { Zod } from '../../shared/utils/zod/validations';
 import { RedisDishesRepository } from '../dishes/redis.repository';
 import { FindRestaurantWithTotalDishesOutput } from './dto/find-restaurant-by-id.dto';
+import {
+  ListAllPaginatedRestaurantsByIdDtoOutput,
+  ListAllRestaurantsByIdDto,
+} from './dto/list-all-restaurants-by-id.dto';
 import { RedisRestaurantRepository } from './redis.repository';
 
 @Injectable()
@@ -54,6 +58,26 @@ export class RestaurantsService {
       totalDishes,
       ...foundRestaurant,
     };
+  }
+
+  public async countTotal(): Promise<number> {
+    return this.redisRestaurantRepository.countTotal();
+  }
+
+  public async listAll(
+    dto: ListAllRestaurantsByIdDto,
+  ): Promise<ListAllPaginatedRestaurantsByIdDtoOutput> {
+    const [totalCount, restaurants] = await Promise.all([
+      this.redisRestaurantRepository.countTotal(),
+      this.redisRestaurantRepository.listAll(dto),
+    ]);
+
+    const output: ListAllPaginatedRestaurantsByIdDtoOutput = {
+      restaurants,
+      totalCount,
+    };
+
+    return output;
   }
 
   public async alreadyExistsRestaurantWithSameName(
