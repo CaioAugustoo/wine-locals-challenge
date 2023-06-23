@@ -1,14 +1,14 @@
 #!/bin/bash
 
 check_if_node_modules_exists(){
-    echo "Checking if node_modules exists"
+    echo "Checking if dependencies are installed"
     DIR=node_modules
 
     if [ -d "$DIR" ]; then
         echo "$DIR found."
     else
         echo "$DIR does not exist."
-        echo "Installing node_modules"
+        echo "Installing dependencies"
         yarn install
     fi
 }
