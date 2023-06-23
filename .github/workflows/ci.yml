@@ -1,7 +1,17 @@
-name: ci
+name: Combined Workflow
+
 on:
-  pull_request:
+  push:
     branches:
       - main
-    paths:
-      - 'server/**'
+
+jobs:
+  server:
+    name: Server Workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Server CI
+        uses: ./server/.github/workflows/ci.yml
