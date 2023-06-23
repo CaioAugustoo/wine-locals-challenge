@@ -1,4 +1,4 @@
-name: Main CI/CD Workflow
+name: Base Workflow
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   server:
-    name: Server CI/CD
+    name: Server Worklow
     runs-on: ubuntu-latest
 
     steps:
@@ -19,9 +19,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
-
-      - name: Get in the right directory
-        run: cd server
 
       - name: Install dependencies
         run: yarn install
