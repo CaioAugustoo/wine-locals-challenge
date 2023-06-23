@@ -20,7 +20,7 @@ export const createDishDtoSchema = z
         required_error: "The 'description' field is required.",
       })
       .min(3)
-      .max(255),
+      .max(200),
     restaurantId: z.string({
       required_error: "The 'restaurantId' field is required.",
     }),

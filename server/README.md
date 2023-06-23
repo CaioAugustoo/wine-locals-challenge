@@ -186,7 +186,7 @@ curl --request GET \
 | `id`          | `string` | **Required**. Id of restaurant               | N/A                            |
 | `name`        | `string` | **Required**. Dish name to be created        | Min length: 3, Max length: 50  |
 | `price`       | `number` | **Required**. Dish price to be created       | Min value: 0                   |
-| `description` | `string` | **Required**. Dish description to be created | Min length: 3, Max length: 255 |
+| `description` | `string` | **Required**. Dish description to be created | Min length: 3, Max length: 200 |
 
 ## License
 
