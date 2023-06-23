@@ -1,8 +1,8 @@
 import { HttpStatus, applyDecorators } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
-import { DEFAULT_PAGINATION_PAGE } from '../../../../constants/pagination';
+import { DEFAULT_PAGINATION_PAGE } from '../../../../../constants/pagination';
 
-export function ListAllRestaurantDishesontrollerSwaggerDocs() {
+export function ListAllRestaurantDishesControllerSwaggerDocs() {
   const summary = ApiOperation({
     summary: 'List all dishes from a restaurant',
   });
