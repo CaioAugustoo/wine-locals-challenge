@@ -8,13 +8,10 @@ jobs:
   server:
     name: Server CI/CD
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Trigger Server Workflow
-        uses: ./.github/workflows/base.yaml
+        uses: ./server/.github/workflows/base.yaml
