@@ -54,6 +54,7 @@ export function ListAllRestaurantDishesontrollerSwaggerDocs() {
   const pageQuery = ApiQuery({
     name: 'page',
     type: 'number',
+    required: false,
     description: `Page number. Default is ${DEFAULT_PAGINATION_PAGE}`,
     example: 1,
   });
