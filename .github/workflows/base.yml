@@ -13,7 +13,7 @@ jobs:
 
       - name: Trigger Server Workflow
         env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN  }}
         run: |
           cd server
           gh workflow run .github/workflows/base.yml
