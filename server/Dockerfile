@@ -1,30 +1,11 @@
-FROM node:lts as builder
+FROM node:18
 
-# Create app directory
 WORKDIR /usr/src/app
 
-# Install app dependencies
 COPY package.json yarn.lock ./
-
-RUN yarn install --frozen-lockfile
+RUN yarn install --ignore-scripts --frozen-lockfile --non-interactive
 
 COPY . .
+RUN yarn prepare
 
-RUN yarn build
-
-FROM node:lts-slim
-
-ENV NODE_ENV production
-USER node
-
-# Create app directory
-WORKDIR /usr/src/app
-
-# Install app dependencies
-COPY package.json yarn.lock ./
-
-RUN yarn install --production --frozen-lockfile
-
-COPY --from=builder /usr/src/app/dist ./dist
-
-CMD [ "node", "dist/main.js" ]
+CMD [ "yarn", "start:prod" ]
