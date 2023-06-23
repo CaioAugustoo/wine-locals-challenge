@@ -1,4 +1,4 @@
-name: Combined Workflow
+name: Base Workflow
 
 on:
   pull_request
@@ -7,9 +7,12 @@ jobs:
   server:
     name: Server Workflow
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
+      
       - name: Run Base Server CI
-        uses: ./server/.github/workflows/base.yml
+        uses: ./.github/workflows/base.yml

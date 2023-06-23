@@ -1,0 +1,309 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2023-06-23T03:23:52.149Z",
+  "__export_source": "insomnia.desktop.app:v2023.2.2",
+  "resources": [
+    {
+      "_id": "req_bb762e93dd5641bdad6e7b2c5b4b0a00",
+      "parentId": "fld_7f6380cea4a74de6b3c457097450b892",
+      "modified": 1687490557888,
+      "created": 1687377606846,
+      "url": "{{ _.base_url }}",
+      "name": "Get Hello World",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_426a9f303ae846328d40143e12956d61",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687377606846,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_7f6380cea4a74de6b3c457097450b892",
+      "parentId": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "modified": 1687377605967,
+      "created": 1687377605967,
+      "name": "App",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687377605967,
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "parentId": null,
+      "modified": 1687377169136,
+      "created": 1687377169136,
+      "name": "Wine locals challenge",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_7908704648524b748929546daeb8f1ec",
+      "parentId": "fld_904ac4a322a24efc8d4e1f7e16c5aa87",
+      "modified": 1687490602877,
+      "created": 1687410851769,
+      "url": "{{ _.base_url }}/restaurants/fc7dc170-2c5e-43a6-a78d-a1ba255626b9/dishes",
+      "name": "Create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"My amazing dish!\",\n\t\"price\": 100,\n\t\"description\": \"This is a super delicious dish. Try now!\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_c08b05475d8a47859b5599021b66d8d6",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_615f6cfbef5142589dd15653d6be7cb7"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687410837584,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_904ac4a322a24efc8d4e1f7e16c5aa87",
+      "parentId": "fld_380d7fbce7d342789dce800f97c8e585",
+      "modified": 1687485835723,
+      "created": 1687410832705,
+      "name": "Dishes",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687442102368,
+      "_type": "request_group"
+    },
+    {
+      "_id": "fld_380d7fbce7d342789dce800f97c8e585",
+      "parentId": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "modified": 1687377283606,
+      "created": 1687377283606,
+      "name": "Restaurants",
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1687377283606,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_e48e3846341940d5ad6194eff1c8e596",
+      "parentId": "fld_904ac4a322a24efc8d4e1f7e16c5aa87",
+      "modified": 1687490543941,
+      "created": 1687410837634,
+      "url": "{{ _.base_url }}/restaurants/fc7dc170-2c5e-43a6-a78d-a1ba255626b9/dishes",
+      "name": "Get all",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_326a11ad022b4920b168a337957ebde7",
+          "name": "page",
+          "value": "1",
+          "description": ""
+        }
+      ],
+      "headers": [
+        {
+          "id": "pair_62230ec6561744ef8a651d57697a9cd0",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687410837534,
+      "isPrivate": false,
+      "settingStoreCookies": false,
+      "settingSendCookies": false,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_7dfc469519234326b46045b67312782b",
+      "parentId": "fld_380d7fbce7d342789dce800f97c8e585",
+      "modified": 1687490542251,
+      "created": 1687485651616,
+      "url": "{{ _.base_url }}/restaurants",
+      "name": "List all",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [
+        {
+          "id": "pair_df7ff681214e4f7180d27746141f8a4a",
+          "name": "page",
+          "value": "1",
+          "description": ""
+        }
+      ],
+      "headers": [
+        {
+          "id": "pair_788d6d8df6364e518d09afb73bcf0577",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687420327744,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_f99b6a9178014835be5d588946421a72",
+      "parentId": "fld_380d7fbce7d342789dce800f97c8e585",
+      "modified": 1687490535999,
+      "created": 1687398553120,
+      "url": "{{ _.base_url }}/restaurants/fc7dc170-2c5e-43a6-a78d-a1ba255626b9",
+      "name": "Find By Id",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [
+        {
+          "id": "pair_75b2ba7d325d4ab6a147a4d78319e4d6",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687398553120,
+      "isPrivate": false,
+      "settingStoreCookies": false,
+      "settingSendCookies": false,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_a5c2bacd843a43e485efc615d22e22e2",
+      "parentId": "fld_380d7fbce7d342789dce800f97c8e585",
+      "modified": 1687490567025,
+      "created": 1687378771276,
+      "url": "{{ _.base_url }}/restaurants",
+      "name": "Create",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"My amazing restaurant\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_e2a0998195d04b6e8960dad0c109caf7"
+        },
+        {
+          "id": "pair_c11b71a383a343358e3148f2886a03c9",
+          "name": "api_key",
+          "value": "XXXX",
+          "description": ""
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": -1687378771276,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_0551438a84f38558082cf3034bd60ccd7b3c2348",
+      "parentId": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "modified": 1687377194295,
+      "created": 1687377169140,
+      "name": "Base Environment",
+      "data": { "base_url": "http://localhost:30001" },
+      "dataPropertyOrder": { "&": ["base_url"] },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1687377169140,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_0551438a84f38558082cf3034bd60ccd7b3c2348",
+      "parentId": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "modified": 1687377169141,
+      "created": 1687377169141,
+      "name": "Default Jar",
+      "cookies": [],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_1e07574ab16145b2bcc2c3013635e059",
+      "parentId": "wrk_34aedc4a6450454f8ef3282e727cc7fe",
+      "modified": 1687377169137,
+      "created": 1687377169137,
+      "fileName": "Wine locals challenge",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    },
+    {
+      "_id": "env_be602435e4aa41b3a953e4603788925a",
+      "parentId": "env_0551438a84f38558082cf3034bd60ccd7b3c2348",
+      "modified": 1687377890387,
+      "created": 1687377201554,
+      "name": "Development",
+      "data": { "base_url": "http://localhost:3002" },
+      "dataPropertyOrder": { "&": ["base_url"] },
+      "color": "#8000ff",
+      "isPrivate": false,
+      "metaSortKey": 1687377201554,
+      "_type": "environment"
+    }
+  ]
+}
