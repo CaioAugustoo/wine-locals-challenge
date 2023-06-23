@@ -1,11 +1,17 @@
 name: Main CI/CD Workflow
 
-on: 
-  pull_request
-  workflow_dispatch:
+on:
+  push:
+    branches: [main]
   pull_request:
-   types: [opened, synchronize, reopened]
+    branches: [main]
 
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   server:
