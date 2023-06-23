@@ -1,6 +1,6 @@
 # Wine Locals Challenge
 
-This Projects belongs to a back-end developer position.
+This project is a technical challenge for a back-end developer position. This repository has 2 folders:
 This repository has 2 folders:
 
 - [client](https://github.com/CaioAugustoo/wine-locals-challenge/tree/master/client): The web app built using React.js ecossystem;
