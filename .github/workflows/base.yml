@@ -7,7 +7,9 @@ jobs:
   server:
     name: Server Workflow
     runs-on: ubuntu-latest
-    working-directory: server
+    defaults:
+      run:
+        working-directory: server
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
