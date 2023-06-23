@@ -1,4 +1,4 @@
-name: Main CI/CD Workflow
+name: Base Workflow
 
 on:
   pull_request:
@@ -6,12 +6,34 @@ on:
 
 jobs:
   server:
-    name: Server CI/CD
+    name: Server Worklow
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          path: ./server
 
-      - name: Trigger Server Workflow
-        uses: ./server/.github/workflows/base.yaml
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Format
+        run: yarn format:write && yarn format:check
+
+      - name: Type Check
+        run: yarn typecheck
+
+      - name: Test
+        run: yarn test:coverage
+
+      - name: Build
+        run: yarn build
