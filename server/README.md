@@ -1,73 +1,208 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Server
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Server is the entry point to every action. If we want to create a new restaurant, Server will send it and so on.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Before you start
 
-## Description
+Please make sure that you have both [yarn](https://classic.yarnpkg.com/lang/en/docs/install/) and [Docker](https://www.docker.com/) installed in your machine.
+If you don't have installed it previously, please check [official yarn's website](https://classic.yarnpkg.com/lang/en/docs/install/) and [official Docker's website](https://www.docker.com/)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech stack
 
-## Installation
+- Node.js
+- Nest.js
+- TypeScript
+- Jest
+- Postgress
+- Zod
+- Redis
+  ...
+
+## Getting started
+
+As first step, you need to clone the repository. You can do this with:
 
 ```bash
-$ yarn install
+$ git clone https://github.com/CaioAugustoo/wine-locals-challenge.git
 ```
 
-## Running the app
+You will get both `server` and `client` folders. Just run `cd server` in your terminal.
+
+Now that you are inside `server` folder, you just need to run:
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+$ make start
 ```
 
-## Test
+or
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+$ ./scripts/start.sh
 ```
 
-## Support
+When you run the above command, it will perform some actions, such as:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- Will check if `node_modules` folder exists
+- Install dependencies
+- Will check if `.env` file exists
+- Copy `.env.example` file to `.env` if doesn't exist yet
+- Run containers from `docker-compose.yml` file (you need to run Docker on pc)
+- Finally, start the project based in `ENV` property from `.env` file
 
-## Stay in touch
+If you want to destroy everything, you can run the following command:
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```bash
+$ make destroy
+```
+
+or
+
+```bash
+$ ./scripts/destroy.sh
+```
+
+When you run the above command, it will perform some actions, such as:
+
+- Delete all containers created previously
+- Delete `node_modules` folder
+
+## Environment Variables
+
+You may need some environment variables. Please check `.env.example` file if you think something is missing.
+
+## Run Locally
+
+After installation, you probably would like to send some requests. You can access `/api` route to see docs from Swagger! Example: [http://localhost:3002/api](http://localhost:3002/api)
+
+Tip: `insomnia.json` file contains all routes from API. Just import the file into insomnia and it will save your time!
+
+## Running Tests
+
+To run unit tests, run the following command:
+
+```bash
+$ yarn test
+```
+
+To run end-to-end (e2e) tests, run the following command:
+
+```bash
+$ yarn test:e2e
+```
+
+## API Reference
+
+**Note**: All routes are protected using `api_key` header.
+
+You can access `/api` route to see docs from Swagger! Example: [http://localhost:3002/api](http://localhost:3002/api)
+
+Tip: `insomnia.json` file contains all routes from API. Just import the file into insomnia and it will save your time!
+
+#### Get all restaurants
+
+```http
+  GET /restaurants?page=1
+```
+
+| Parameter | Type     | Description                                               |
+| :-------- | :------- | :-------------------------------------------------------- |
+| `page`    | `number` | **Optional**. Page for paginated results. Defaults to _1_ |
+
+Example:
+
+```curl
+curl --request GET \
+  --url 'http://localhost:3002/restaurants?page=1' \
+  --header 'api_key: XXXX'
+```
+
+#### Get restaurant
+
+```http
+  GET /restaurants/${id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+Example:
+
+```curl
+curl --request GET \
+  --url http://localhost:3002/restaurants/fc7dc170-2c5e-43a6-a78d-a1ba255626b9 \
+  --header 'api_key: XXXX'
+```
+
+#### Create restaurant
+
+```http
+  POST /restaurants
+```
+
+| Parameter | Type     | Description                                 | Constraints                   |
+| :-------- | :------- | :------------------------------------------ | :---------------------------- |
+| `name`    | `string` | **Required**. Restaurant name to be created | Min length: 3, Max length: 50 |
+
+Example:
+
+```curl
+curl --request POST \
+  --url http://localhost:3002/restaurants \
+  --header 'Content-Type: application/json' \
+  --header 'api_key: XXXX' \
+  --data '{
+	"name": "My amazing restaurant"
+}'
+```
+
+#### List all dishes from a restaurant
+
+```http
+  GET /restaurants/${id}/dishes
+```
+
+| Parameter | Type     | Description                                               |
+| :-------- | :------- | :-------------------------------------------------------- |
+| `id`      | `string` | **Required**. Id of restaurant                            |
+| `page`    | `number` | **Optional**. Page for paginated results. Defaults to _1_ |
+
+Example:
+
+```curl
+curl --request GET \
+  --url 'http://localhost:3002/restaurants/fc7dc170-2c5e-43a6-a78d-a1ba255626b9/dishes?page=1' \
+  --header 'api_key: XXXX'
+```
+
+#### Create a new restaurant's dish
+
+```http
+  POST /restaurants/${id}/dishes
+```
+
+| Parameter     | Type     | Description                                  | Constraints                    |
+| :------------ | :------- | :------------------------------------------- | :----------------------------- |
+| `id`          | `string` | **Required**. Id of restaurant               | N/A                            |
+| `name`        | `string` | **Required**. Dish name to be created        | Min length: 3, Max length: 50  |
+| `price`       | `number` | **Required**. Dish price to be created       | Min value: 0                   |
+| `description` | `string` | **Required**. Dish description to be created | Min length: 3, Max length: 200 |
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Authors
+
+- [@caioaugustoo](https://www.github.com/caioaugustoo)
+
+## Features
+
+- Find restaurants
+- Find dishes from a restaurant
+- Create dishes
+- Create restaurants
+
+## Support
+
+For support, email caioamfr@gmail.com

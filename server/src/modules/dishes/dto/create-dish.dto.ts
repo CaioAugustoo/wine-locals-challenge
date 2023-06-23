@@ -9,15 +9,18 @@ export const createDishDtoSchema = z
       })
       .min(3)
       .max(50),
-    price: z.number({
-      required_error: "The 'price' field is required.",
-    }),
+    price: z
+      .number({
+        required_error: "The 'price' field is required.",
+      })
+      .min(0),
+
     description: z
       .string({
         required_error: "The 'description' field is required.",
       })
       .min(3)
-      .max(255),
+      .max(200),
     restaurantId: z.string({
       required_error: "The 'restaurantId' field is required.",
     }),
