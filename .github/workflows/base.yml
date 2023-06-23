@@ -21,19 +21,19 @@ jobs:
           node-version: 16.x
 
       - name: Install dependencies
-        run: cd server && yarn install
+        run: yarn install
 
       - name: Lint
-        run: yarn lint
+        run: cd server && yarn lint
 
       - name: Format
-        run: yarn format:write && yarn format:check
+        run: cd server && yarn format:write && yarn format:check
 
       - name: Type Check
-        run: yarn typecheck
+        run: cd server && yarn typecheck
 
       - name: Test
-        run: yarn test:coverage
+        run: cd server && yarn test:coverage
 
       - name: Build
-        run: yarn build
+        run: cd server && yarn build
