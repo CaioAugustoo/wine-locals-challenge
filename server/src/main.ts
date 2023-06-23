@@ -12,9 +12,11 @@ async function bootstrap() {
 
   app.useGlobalGuards(new ApiKeyGuard());
 
-  app.enableCors({
-    origin: process.env.CORS_ORIGIN,
-  });
+  if (process.env.CORS_ENABLED === 'true') {
+    app.enableCors({
+      origin: process.env.CORS_ORIGIN,
+    });
+  }
 
   const config = new DocumentBuilder()
     .addBearerAuth()

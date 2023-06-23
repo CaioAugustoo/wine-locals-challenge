@@ -11,6 +11,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import {
   CreateRestaurantControllerSwaggerDocs,
+  CreateRestaurantDishControllerSwaggerDocs,
   FindRestaurantByIdControllerSwaggerDocs,
   ListAllRestaurantDishesontrollerSwaggerDocs,
 } from '../../shared/swagger';
@@ -79,6 +80,7 @@ export class RestaurantsController {
   }
 
   @HttpCode(HttpStatus.OK)
+  @CreateRestaurantDishControllerSwaggerDocs()
   @Post(':id/dishes')
   public async createDish(
     @Param() params: { id: string },
