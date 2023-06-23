@@ -1,18 +1,20 @@
-name: Base Workflow
+name: Main CI/CD Workflow
 
 on:
-  pull_request
+  push:
+    branches:
+      - main
 
 jobs:
   server:
-    name: Server Workflow
+    name: Server CI/CD
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: server
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      
-      - name: Run Base Server CI
-        uses: ./.github/workflows/base.yml
+
+      - name: Trigger Server Workflow
+        run: |
+          cd server
+          gh workflow run .github/workflows/base.yml
