@@ -1,11 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../config/prisma';
+import { getPagination } from '../../shared/utils/get-pagination';
 import {
   CreateRestaurantDto,
   CreateRestaurantDtoOutput,
 } from './dto/create-restaurant.dto';
 import { FindRestaurantByIdOutput } from './dto/find-restaurant-by-id.dto';
 import { FindRestaurantByNameDtoOutput } from './dto/find-restaurant-by-name.dto';
+import {
+  ListAllRestaurantsByIdDto,
+  ListAllRestaurantsByIdDtoOutput,
+} from './dto/list-all-restaurants-by-id.dto';
 import { IRestaurantsRepository } from './interfaces/restaurants.repository';
 
 @Injectable()
@@ -50,6 +55,30 @@ export class RestaurantsRepository implements IRestaurantsRepository {
       where: {
         name,
       },
+    });
+  }
+
+  public async countTotal(): Promise<number> {
+    return this.prismaService.restaurant.count();
+  }
+
+  public async listAll(
+    dto: ListAllRestaurantsByIdDto,
+  ): Promise<ListAllRestaurantsByIdDtoOutput> {
+    return this.prismaService.restaurant.findMany({
+      select: {
+        id: true,
+        name: true,
+        _count: {
+          select: {
+            dish: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      ...getPagination(dto.page),
     });
   }
 }

@@ -38,6 +38,9 @@ describe('RestaurantsController', () => {
           provide: DishesService,
           useValue: {
             listAll: jest.fn(() => Promise.resolve([])),
+            create: jest.fn(() =>
+              Promise.resolve({ id: randomUUID(), name: 'Dish 1' }),
+            ),
           },
         },
       ],
@@ -151,6 +154,34 @@ describe('RestaurantsController', () => {
       response = await controller.listAllDishes(params, query);
 
       expect(response.data.dishes).toHaveLength(0);
+    });
+  });
+
+  describe('createDish', () => {
+    it('should create a dish', async () => {
+      jest.spyOn(dishesService, 'create').mockResolvedValue({
+        id: randomUUID(),
+        name: 'Dish 1',
+        price: 10,
+        description: 'Dish 1 description',
+        createdAt: new Date(),
+      });
+
+      const restaurantId = randomUUID();
+
+      const dish = {
+        name: 'Dish 1',
+        price: 10,
+        description: 'Dish 1 description',
+      };
+
+      const createdDish = await controller.createDish(
+        { id: restaurantId },
+        dish,
+      );
+
+      expect(createdDish.data.id).toBeDefined();
+      expect(createdDish.data.name).toEqual(dish.name);
     });
   });
 });

@@ -21,6 +21,8 @@ describe('RestaurantsService', () => {
             create: jest.fn(),
             findByName: jest.fn(),
             findById: jest.fn(),
+            countTotal: jest.fn(),
+            listAll: jest.fn(),
           },
         },
         {
@@ -128,6 +130,45 @@ describe('RestaurantsService', () => {
       jest.spyOn(repository, 'findById').mockResolvedValue(restaurant);
 
       expect(await service.findById('1')).toEqual(restaurant);
+    });
+  });
+
+  describe('countTotal', () => {
+    it('should return the total of restaurants', async () => {
+      jest.spyOn(repository, 'countTotal').mockResolvedValue(1);
+
+      expect(await service.countTotal()).toEqual(1);
+    });
+  });
+
+  describe('listAll', () => {
+    it('should return the list of restaurants', async () => {
+      const restaurants = [
+        {
+          id: '1',
+          name: 'Restaurant 1',
+          _count: {
+            dish: 0,
+          },
+        },
+        {
+          id: '2',
+          name: 'Restaurant 2',
+          _count: {
+            dish: 0,
+          },
+        },
+      ];
+
+      jest.spyOn(service, 'listAll').mockResolvedValue({
+        restaurants,
+        totalCount: restaurants.length,
+      });
+
+      expect(await service.listAll({ page: 1 })).toEqual({
+        restaurants,
+        totalCount: restaurants.length,
+      });
     });
   });
 });
