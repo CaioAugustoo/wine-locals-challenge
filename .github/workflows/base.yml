@@ -13,5 +13,28 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Trigger Server Workflow
-        uses: ./server/.github/workflows/base.yaml
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+
+      - name: Get in the right directory
+        run: cd server
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Format
+        run: yarn format:write && yarn format:check
+
+      - name: Type Check
+        run: yarn typecheck
+
+      - name: Test
+        run: yarn test:coverage
+
+      - name: Build
+        run: yarn build
