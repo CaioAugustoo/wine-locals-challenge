@@ -8,7 +8,7 @@ export const createRestaurantDtoSchema = z
         required_error: "The 'name' field is required.",
       })
       .min(3)
-      .max(255),
+      .max(50),
   })
   .strict();
 
