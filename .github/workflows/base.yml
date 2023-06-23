@@ -3,7 +3,9 @@ name: Main CI/CD Workflow
 on: 
   pull_request
   workflow_dispatch:
-  pull_request
+  pull_request:
+   types: [opened, synchronize, reopened]
+
 
 jobs:
   server:
