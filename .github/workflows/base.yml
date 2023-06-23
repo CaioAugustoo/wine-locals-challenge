@@ -5,13 +5,12 @@ on:
     branches: []
   pull_request:
     branches: []
-
   workflow_dispatch:
     inputs:
-      debug:
-        type: boolean
-        required: false
-        default: false
+      logLevel:
+        description: "Log level"
+        required: true
+        default: "warning"
 
 jobs:
   server:
