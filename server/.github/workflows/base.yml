@@ -1,4 +1,7 @@
 steps:
+  - name: Checkout Repository
+    uses: actions/checkout@v2
+
   - name: Setup Node
     uses: actions/setup-node@v1
     with:
