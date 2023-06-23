@@ -19,7 +19,7 @@ async function bootstrap() {
   }
 
   const config = new DocumentBuilder()
-    .addBearerAuth()
+    .addApiKey()
     .setTitle('Share Eat - Rest API')
     .setDescription(
       `
