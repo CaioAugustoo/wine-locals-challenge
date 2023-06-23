@@ -1,9 +1,7 @@
 name: Combined Workflow
 
 on:
-  push:
-    branches:
-      - develop
+  pull_request
 
 jobs:
   server:
@@ -13,5 +11,5 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Run Server CI
-        uses: ./server/.github/workflows/ci.yml
+      - name: Run Base Server CI
+        uses: ./server/.github/workflows/base.yml
