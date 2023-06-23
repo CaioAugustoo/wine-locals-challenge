@@ -12,4 +12,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Base Server CI
-        uses: ./server/.github/workflows/base.yml
+        uses: server/.github/workflows/base.yml
