@@ -2,9 +2,9 @@ name: Main CI/CD Workflow
 
 on:
   push:
-    branches: [main]
+    branches: []
   pull_request:
-    branches: [main]
+    branches: []
 
   workflow_dispatch:
     inputs:
