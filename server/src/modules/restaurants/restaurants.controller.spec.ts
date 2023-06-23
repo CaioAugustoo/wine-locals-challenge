@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Prisma } from '@prisma/client';
 import { randomUUID } from 'crypto';
 import { createDishesMock } from '../../shared/mocks/dishes';
 import { DishesService } from '../dishes/dishes.service';
@@ -162,7 +163,7 @@ describe('RestaurantsController', () => {
       jest.spyOn(dishesService, 'create').mockResolvedValue({
         id: randomUUID(),
         name: 'Dish 1',
-        price: 10,
+        price: new Prisma.Decimal(10),
         description: 'Dish 1 description',
         createdAt: new Date(),
       });
