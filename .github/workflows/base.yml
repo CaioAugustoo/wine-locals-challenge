@@ -7,7 +7,7 @@ jobs:
     name: Server CI/CD
     runs-on: ubuntu-latest
     env:
-      GH_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ secrets.token }}
 
     steps:
       - name: Checkout Repository
