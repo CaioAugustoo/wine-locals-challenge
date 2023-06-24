@@ -22,7 +22,6 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "prepare": "cd .. && husky install server/.husky",
-    "postinstall": "cd .. && husky install server/.husky",
     "prisma:generate": "prisma generate"
   },
   "dependencies": {
