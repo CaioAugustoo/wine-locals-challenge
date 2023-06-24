@@ -11,7 +11,7 @@ export function GetHelloWorldAppControllerSwaggerDocs() {
     schema: {
       example: {
         ok: true,
-        error: null,
+        error: false,
         message: null,
         data: 'Hello World!',
         status: 200,

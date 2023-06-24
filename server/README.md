@@ -72,7 +72,22 @@ You may need some environment variables. Please check `.env.example` file if you
 
 ## Run Locally
 
-After installation, you probably would like to send some requests. You can access `/api` route to see docs from Swagger! Example: [http://localhost:3002/api](http://localhost:3002/api)
+This application is containerized with Docker. If you would like to run it locally you just need
+to run the following command:
+
+```bash
+docker run -e REDIS_URI="redis://host.docker.internal:6379" -e DATABASE_URL="postgresql://postgres:postgres@host.docker.internal:5432/share-eat-db?schema=public" -e PORT=3002 wine_locals_challenge
+```
+
+**Note**: Please, make sure all variables are correct. See `.env.example` or `Dockerfile` file if you think something is missing.
+
+After installation, you need to push migrations to database. You can do it by running:
+
+```bash
+  npx prisma db push
+```
+
+Finally, you probably would like to send some requests. You can access `/api` route to see docs from Swagger! Example: [http://localhost:3002/api](http://localhost:3002/api)
 
 Tip: `insomnia.json` file contains all routes from API. Just import the file into insomnia and it will save your time!
 

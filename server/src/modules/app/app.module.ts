@@ -2,7 +2,7 @@ import { RedisModule } from '@nestjs-modules/ioredis';
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { LoggerMiddleware } from 'src/shared';
+import { LoggerMiddleware } from '../../shared/middlewares';
 import { DishesModule } from '../dishes/dishes.module';
 import { RestaurantsModule } from '../restaurants/restaurants.module';
 import { AppController } from './app.controller';
