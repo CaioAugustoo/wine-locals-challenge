@@ -12,7 +12,7 @@ export class ApiKeyGuard implements CanActivate {
   canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
 
-    if (process.env.ENV === 'development') {
+    if (process.env.NODE_ENV === 'development') {
       return true;
     }
 

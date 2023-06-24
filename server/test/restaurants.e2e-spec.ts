@@ -24,8 +24,17 @@ describe('RestaurantsController (e2e)', () => {
   afterAll(async () => {
     await Promise.all([app.close(), prismaService.disconnect()]);
 
-    await prismaService.dish.deleteMany();
-    await prismaService.restaurant.deleteMany();
+    await prismaService.dish.deleteMany({
+      where: {
+        restaurantId: createdRestaurantId,
+      },
+    });
+
+    await prismaService.restaurant.delete({
+      where: {
+        id: createdRestaurantId,
+      },
+    });
   });
   describe('/restaurants (POST)', () => {
     it('should throw error if name field is not provided', () => {
