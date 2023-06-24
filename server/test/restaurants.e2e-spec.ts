@@ -56,4 +56,32 @@ describe('RestaurantsController (e2e)', () => {
         });
     });
   });
+
+  describe('/restaurants/:id (GET)', () => {
+    it('should return restaurant by id', () => {
+      return request(app.getHttpServer())
+        .get(`/restaurants/${createdRestaurantId}`)
+        .expect((res) => {
+          return expect(res.body).toEqual(
+            expect.objectContaining({
+              ok: true,
+              error: false,
+              message: null,
+              status: 200,
+              data: expect.any(Object),
+            }),
+          );
+        });
+    });
+
+    it("should throw error if restaurant doesn't exists", () => {
+      return request(app.getHttpServer()).get(`/restaurants/123`).expect(404, {
+        ok: false,
+        error: true,
+        message: 'Restaurant not found',
+        status: 404,
+        data: null,
+      });
+    });
+  });
 });
