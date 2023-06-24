@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PrismaService } from 'src/config/prisma';
+import { PrismaService } from '../../config/prisma';
 import { RedisRestaurantRepository } from '../restaurants/redis.repository';
 import { RestaurantsRepository } from '../restaurants/restaurants.repository';
 import { RestaurantsService } from '../restaurants/restaurants.service';

@@ -11,7 +11,7 @@ export function CreateRestaurantControllerSwaggerDocs() {
     schema: {
       example: {
         ok: true,
-        error: null,
+        error: false,
         message: null,
         data: {
           id: '23f70675-6bae-48b8-815c-95fbbce6691d',

@@ -19,7 +19,7 @@ describe('AppController', () => {
       expect(await appController.getHello()).toEqual({
         status: 200,
         ok: true,
-        error: null,
+        error: false,
         message: null,
         data: 'Hello World!',
       });
