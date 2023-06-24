@@ -1,6 +1,6 @@
 export const getBaseSuccessResponse = () => ({
   ok: true,
-  error: null,
+  error: false,
   message: null,
 });
 

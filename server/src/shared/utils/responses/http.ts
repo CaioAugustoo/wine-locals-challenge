@@ -4,7 +4,7 @@ export class HttpResponses extends HttpException {
   static parseSuccess<T>(data: T, status = HttpStatus.OK) {
     return {
       ok: true,
-      error: null,
+      error: false,
       message: null,
       data,
       status,

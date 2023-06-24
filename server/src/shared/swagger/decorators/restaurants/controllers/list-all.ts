@@ -12,7 +12,7 @@ export function ListAllRestaurantsControllerSwaggerDocs() {
     schema: {
       example: {
         ok: true,
-        error: null,
+        error: false,
         message: null,
         data: {
           restaurants: [
