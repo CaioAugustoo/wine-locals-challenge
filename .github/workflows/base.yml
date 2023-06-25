@@ -8,12 +8,13 @@ jobs:
   server:
     name: Server Workflow
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./server
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          path: ./server
 
       - name: Setup Node
         uses: actions/setup-node@v1
@@ -24,16 +25,16 @@ jobs:
         run: yarn install
 
       - name: Lint
-        run: cd server && yarn lint
+        run: yarn lint
 
       - name: Format
-        run: cd server && yarn format:write && yarn format:check
+        run: yarn format:write && yarn format:check
 
       - name: Type Check
-        run: cd server && yarn typecheck
+        run: yarn typecheck
 
       - name: Test
-        run: cd server && yarn test:coverage
+        run: yarn test:coverage
 
       - name: Build
-        run: cd server && yarn build
+        run: yarn build
