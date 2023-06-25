@@ -72,10 +72,16 @@ When you run the above command, it will perform some actions, such as:
 
 You may need some environment variables. Please check `.env.example` file if you think something is missing.
 
-## Run Locally
+## Creating Docker image
 
-This application is containerized with Docker. If you would like to run it locally you just need
-to run the following command:
+This application is containerized with Docker. That means you can create a Docker image and run it in your machine.
+Example:
+
+```bash
+docker build -t wine_locals_challenge .
+```
+
+then run it with:
 
 ```bash
 docker run -e REDIS_URI="redis://host.docker.internal:6379" -e DATABASE_URL="postgresql://postgres:postgres@host.docker.internal:5432/share-eat-db?schema=public" -e PORT=3002 wine_locals_challenge
@@ -83,7 +89,7 @@ docker run -e REDIS_URI="redis://host.docker.internal:6379" -e DATABASE_URL="pos
 
 **Note**: Please, make sure all variables are correct. See `.env.example` or `Dockerfile` file if you think something is missing.
 
-After installation, you need to push migrations to database. You can do it by running:
+Also you need to push migrations to database. You can do it by running:
 
 ```bash
   npx prisma db push
