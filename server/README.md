@@ -5,7 +5,7 @@ Server is the entry point to every action. If we want to create a new restaurant
 ## Before you start
 
 Please make sure that you have both [yarn](https://classic.yarnpkg.com/lang/en/docs/install/) and [Docker](https://www.docker.com/) installed in your machine.
-If you don't have installed it previously, please check [official yarn's website](https://classic.yarnpkg.com/lang/en/docs/install/) and [official Docker's website](https://www.docker.com/)
+If you don't have installed it yet, please check [official yarn's website](https://classic.yarnpkg.com/lang/en/docs/install/) and [official Docker's website](https://www.docker.com/)
 
 ## Tech stack
 
