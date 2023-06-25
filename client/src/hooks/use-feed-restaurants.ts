@@ -7,8 +7,6 @@ export const useFeedRestaurants = () => {
     ? data.pages.flatMap((page) => page?.restaurants || [])
     : [];
 
-  console.log("data", data);
-
   const totalCount = data?.pages[0]?.totalCount || 0;
 
   return {
