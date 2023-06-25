@@ -34,7 +34,7 @@ jobs:
         run: yarn typecheck
 
       - name: Test
-        run: yarn test:coverage
+        run: yarn test:cov
 
       - name: Build
         run: yarn build
