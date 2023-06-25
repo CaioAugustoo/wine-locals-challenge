@@ -35,9 +35,9 @@ load_env_file() {
 start_based_on_environment() {
     load_env_file
 
-    if [ "$ENV" = "development" ]; then
+    if [ "$NODE_ENV" = "development" ]; then
         ./scripts/start-dev.sh
-    elif [ "$ENV" = "production" ]; then
+    elif [ "$NODE_ENV" = "production" ]; then
         ./scripts/start-prod.sh
     else
         echo "No environment specified. Allowed values: development, production"
