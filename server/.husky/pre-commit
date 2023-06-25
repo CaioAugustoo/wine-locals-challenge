@@ -1,11 +1,7 @@
 #!/bin/sh
 cd server
 
-"/_/husky.sh"
-
-
 echo '🏗️👷 Styling, testing and building your project before committing'
-
 
 # Check Unit tests
 npm run test ||
