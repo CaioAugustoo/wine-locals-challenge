@@ -39,36 +39,33 @@ jobs:
       - name: Build
         run: yarn build
 
-  # client:
-  #   name: Client Workflow
-  #   runs-on: ubuntu-latest
-  #   defaults:
-  #     run:
-  #       working-directory: ./client
+  client:
+    name: Client Workflow
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
 
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v2
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: 16.x
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
 
-  #     - name: Install dependencies
-  #       run: yarn install
+      - name: Install dependencies
+        run: yarn install
 
-  #     - name: Lint
-  #       run: yarn lint
+      - name: Lint
+        run: yarn lint
 
-  #     - name: Format
-  #       run: yarn format:write && yarn format:check
+      - name: Format
+        run: yarn format:write && yarn format:check
 
-  #     - name: Type Check
-  #       run: yarn typecheck
+      - name: Type Check
+        run: yarn typecheck
 
-  #     - name: Test
-  #       run: yarn test:cov
-
-  #     - name: Build
-  #       run: yarn build
+      - name: Build
+        run: yarn build
