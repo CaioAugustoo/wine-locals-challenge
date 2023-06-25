@@ -18,6 +18,9 @@ Both `client` and `server` folders contains instructions that show you how to ru
 - Create dishes
 - Create restaurants
 
+# CI/CD
+Bot `server` and `client` have Github Actions. With Github actions we can check if all tests are passing, if the code is ok, build project and push images to Docker, etc.
+
 ## Authors
 
 - [@caioaugustoo](https://www.github.com/caioaugustoo)
