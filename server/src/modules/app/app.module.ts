@@ -7,12 +7,14 @@ import { DishesModule } from '../dishes/dishes.module';
 import { RestaurantsModule } from '../restaurants/restaurants.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
 @Module({
   imports: [
     RestaurantsModule,
     DishesModule,
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ['.env', '.env.test', '.env.local'],
+      isGlobal: true,
+    }),
     ThrottlerModule.forRoot({
       ttl: Number(process.env.THROTTLER_LIMIT_TTL) ?? 60,
       limit: Number(process.env.THROTTLER_LIMIT_LIMIT) ?? 20,

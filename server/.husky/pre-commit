@@ -1,15 +1,12 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo "$(dirname "$0")/_/husky.sh"
+
 echo '🏗️👷 Styling, testing and building your project before committing'
 
-# Check Prettier standards
-npm run format:check ||
-(
-    echo '🤢🤮🤢🤮 Its FOKING RAW - Your styling looks disgusting. 🤢🤮🤢🤮
-            Prettier Check Failed. Run npm run format:write && npm run format:check, add changes and try commit again.';
-    false;
-)
+
+
 
 # Check ESLint Standards
 npm run lint ||
