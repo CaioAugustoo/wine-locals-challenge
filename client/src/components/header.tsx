@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import { Icons, Logo } from "@/src/components";
 import { usePathname, useRouter } from "next/navigation";
-import { Icons } from "./icons";
 
 export const Header = () => {
   const pathname = usePathname();
@@ -19,13 +18,7 @@ export const Header = () => {
           </button>
         )}
 
-        <Image
-          className="mx-auto"
-          src="/logo.svg"
-          width="100"
-          height="100"
-          alt='Logo da empresa "Share Eat". Escrito na cor branca o texto "Share Eat"'
-        />
+        <Logo />
       </div>
     </div>
   );
