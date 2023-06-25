@@ -1,4 +1,5 @@
 import { useFeedRestaurants } from "@/src/hooks";
+import { Error } from "./error";
 import { Items } from "./items";
 import { PaginationButton } from "./pagination-button";
 import { Skeletons } from "./skeletons";
@@ -16,10 +17,12 @@ export const Feed = () => {
   } = useFeedRestaurants();
 
   return (
-    <div className="container flex flex-col justify-center gap-4">
-      {isLoading ? (
-        <Skeletons />
-      ) : (
+    <div className="container mx-auto flex flex-col justify-center gap-4">
+      {isLoading && <Skeletons />}
+
+      {!!error && <Error />}
+
+      {!isLoading && !error && (
         <>
           <Title totalCount={totalCount} />
           <Items restaurants={restaurants} />
