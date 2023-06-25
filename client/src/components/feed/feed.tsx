@@ -1,6 +1,7 @@
 import { useFeedRestaurants } from "@/src/hooks";
 import { Items } from "./items";
 import { PaginationButton } from "./pagination-button";
+import { Skeletons } from "./skeletons";
 import { Title } from "./title";
 
 export const Feed = () => {
@@ -16,14 +17,20 @@ export const Feed = () => {
 
   return (
     <div className="container flex flex-col justify-center gap-4">
-      <Title totalCount={totalCount} />
-      <Items restaurants={restaurants} />
+      {isLoading ? (
+        <Skeletons />
+      ) : (
+        <>
+          <Title totalCount={totalCount} />
+          <Items restaurants={restaurants} />
 
-      <PaginationButton
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-      />
+          <PaginationButton
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
+        </>
+      )}
     </div>
   );
 };
