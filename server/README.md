@@ -20,7 +20,7 @@ If you don't have installed it yet, please check [official yarn's website](https
 
 ## Getting started
 
-As first step, you need to clone the repository. You can do this with:
+As first step, you need to clone the repository. You can do it with:
 
 ```bash
 $ git clone https://github.com/CaioAugustoo/wine-locals-challenge.git
