@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 
 export const createDishSchema = z
   .object({
@@ -25,10 +25,7 @@ export const createDishSchema = z
       .max(200, {
         message: "Máximo de 200 caracteres.",
       }),
-    restaurantId: z.string({
-      required_error: "Campo obrigatório.",
-    }),
   })
   .strict();
 
-export type CreateDish = z.infer<typeof createDishSchema>;
+export type CreateDishSchema = z.infer<typeof createDishSchema>;

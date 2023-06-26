@@ -19,6 +19,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           ref={ref}
           className={cn("rounded-md px-2 py-1.5 text-black", className)}
           id={name}
+          name={name}
           {...props}
         />
         <span className="text-red-500">{error}</span>

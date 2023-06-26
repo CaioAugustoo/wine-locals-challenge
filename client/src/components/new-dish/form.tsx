@@ -1,20 +1,27 @@
 import { Button, Input, TextArea } from "@/components";
-import { CreateDish, createDishSchema } from "@/schemas";
+import { CreateDishSchema, createDishSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { NumericFormat } from "react-number-format";
+import { InputAttributes, NumericFormat } from "react-number-format";
+
+interface NumericFormatProps extends InputAttributes {
+  value: string;
+}
 
 export const Form = () => {
   const {
     handleSubmit,
     register,
     getValues,
+    setValue,
     formState: { errors },
-  } = useForm<CreateDish>({
+  } = useForm<Omit<CreateDishSchema, "restaurantId">>({
     resolver: zodResolver(createDishSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateDish> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Omit<CreateDishSchema, "restaurantId">> = (
+    data
+  ) => console.log(data);
 
   return (
     <form
@@ -22,10 +29,10 @@ export const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        {...register("name")}
         placeholder="Exemplo: X-Tudo"
         label="Nome do prato"
         error={errors.name?.message}
+        {...register("name")}
       />
 
       <NumericFormat
@@ -33,16 +40,20 @@ export const Form = () => {
         decimalSeparator=","
         prefix="R$ "
         allowNegative={false}
-        customInput={(props) => (
-          <Input
-            placeholder="R$ 120,00"
-            label="Valor"
-            className="w-[200px]"
-            error={errors?.price?.message}
-            {...register("price")}
-            {...props}
-          />
-        )}
+        customInput={(props: NumericFormatProps) => {
+          setValue("price", props.value);
+
+          return (
+            <Input
+              placeholder="R$ 120,00"
+              label="Valor"
+              className="w-[200px]"
+              error={errors?.price?.message}
+              {...register("price")}
+              {...props}
+            />
+          );
+        }}
       />
 
       <div>
