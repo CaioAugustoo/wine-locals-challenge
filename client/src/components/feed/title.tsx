@@ -11,7 +11,9 @@ export const Title = ({ totalCount = 0 }: FeedTitleProps) => {
       <div>
         <Heading
           title="Lugares"
-          description={`${totalCount} lugares cadastrados`}
+          description={`${totalCount} ${
+            totalCount === 1 ? "lugar" : "lugares"
+          } cadastrados`}
         />
       </div>
 
