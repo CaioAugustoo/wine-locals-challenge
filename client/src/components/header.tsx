@@ -12,13 +12,18 @@ export const Header = () => {
   return (
     <header className="pt-4">
       <div className="flex items-center gap-2">
-        {!isInHomePage && (
-          <nav>
-            <button onClick={back}>
-              <Icons.arrowLeft />
-            </button>
-          </nav>
-        )}
+        <nav
+          className={
+            isInHomePage
+              ? "pointer-events-none opacity-0"
+              : "opacity-1 pointer-events-auto"
+          }
+        >
+          <button onClick={back}>
+            <Icons.arrowLeft />
+          </button>
+        </nav>
+
         <Logo />
       </div>
     </header>
