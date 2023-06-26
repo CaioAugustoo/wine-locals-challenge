@@ -37,6 +37,8 @@ or
 $ ./scripts/start.sh
 ```
 
+**NOTE**: Linux users could face some errors when try to run scripts from `./scripts` folder. If you are facing this issue, please run `chmod +x ./scripts/*` to give permission to run scripts.
+
 When you run the above command, it will perform some actions, such as:
 
 - Will check if `node_modules` folder exists
