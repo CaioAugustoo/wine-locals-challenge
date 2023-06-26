@@ -28,7 +28,7 @@ export const useListAllRestaurantsQuery = () => {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        if ((lastPage?.totalCount || 0) < 10) {
+        if ((lastPage?.restaurants.length || 0) < 10) {
           return;
         }
 

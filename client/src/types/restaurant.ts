@@ -9,3 +9,10 @@ export interface FeedRestaurant extends Omit<Restaurant, "description"> {
     dish: number;
   };
 }
+
+export interface Dish {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+}
