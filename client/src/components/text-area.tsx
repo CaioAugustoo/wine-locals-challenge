@@ -22,7 +22,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           name={name}
           {...props}
         />
-        <span className="text-red-500">{error}</span>
+        <span className="text-sm text-red-500">{error}</span>
       </div>
     );
   }
