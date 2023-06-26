@@ -8,8 +8,6 @@ export const Form = () => {
   const {
     handleSubmit,
     register,
-    control,
-    setValue,
     formState: { errors },
   } = useForm<CreateDish>({
     resolver: zodResolver(createDishSchema),
