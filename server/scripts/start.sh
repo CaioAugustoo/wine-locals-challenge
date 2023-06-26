@@ -52,6 +52,7 @@ start_containers() {
 }
 
 push_migrations() {
+    sleep 2
     echo "Pushing migrations"
     yarn prisma db push
 }
