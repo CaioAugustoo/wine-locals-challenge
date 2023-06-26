@@ -8,6 +8,7 @@ export const Form = () => {
   const {
     handleSubmit,
     register,
+    getValues,
     formState: { errors },
   } = useForm<CreateDish>({
     resolver: zodResolver(createDishSchema),
@@ -21,10 +22,10 @@ export const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
+        {...register("name")}
         placeholder="Exemplo: X-Tudo"
         label="Nome do prato"
         error={errors.name?.message}
-        {...register("name")}
       />
 
       <NumericFormat
@@ -38,19 +39,19 @@ export const Form = () => {
             label="Valor"
             className="w-[200px]"
             error={errors?.price?.message}
-            {...register("price")}
             {...props}
+            {...register("price")}
           />
         )}
       />
 
       <div>
         <TextArea
+          {...register("description")}
           label="Descrição do prato"
           placeholder="Insira uma descrição"
           rows={5}
           error={errors.description?.message}
-          {...register("description")}
         />
         <span className="text-xs">
           *A descrição deve conter até 200 caracteres
