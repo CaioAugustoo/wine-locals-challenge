@@ -1,8 +1,6 @@
-import {
-  useFindRestaurantByIdQuery,
-  useGetRestaurantsDishesQuery,
-} from "@/src/hooks";
+import { useFindRestaurantByIdQuery, useListAllDishes } from "@/src/hooks";
 import { useParams } from "next/navigation";
+import { PaginationButton } from "../pagination-button";
 import { CreateNewDishButton } from "./create-new-dish";
 import { Error } from "./error";
 import { Items } from "./items";
@@ -18,10 +16,13 @@ export const Restaurant = () => {
   } = useFindRestaurantByIdQuery(params.id);
 
   const {
-    data: dishesData,
+    dishes,
     error: dishesError,
     isLoading: isLoadingDishes,
-  } = useGetRestaurantsDishesQuery(params.id);
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useListAllDishes(params.id);
 
   const error = restaurantError || dishesError;
   const isLoading = isLoadingRestaurant || isLoadingDishes;
@@ -33,10 +34,14 @@ export const Restaurant = () => {
   return (
     <div className="flex flex-col gap-4">
       <Title name={data?.name} totalDishes={data?.totalDishes} />
+      <Items dishes={dishes} />
       {!!error && <Error />}
 
-      <Items dishes={dishesData?.dishes ?? []} />
-
+      <PaginationButton
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+      />
       <CreateNewDishButton />
     </div>
   );

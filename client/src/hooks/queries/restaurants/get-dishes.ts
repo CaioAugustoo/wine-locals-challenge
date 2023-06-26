@@ -1,23 +1,35 @@
 import { mainAdapter } from "@/src/infra";
 import { Dish } from "@/src/types";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface Response {
   dishes: Dish[];
   totalCount: number;
 }
 
-const handler = async (id: string): Promise<Response> => {
-  const response = await mainAdapter.get(`/restaurants/${id}/dishes`);
+const handler = async (id: string, page: number = 1): Promise<Response> => {
+  const response = await mainAdapter.get(
+    `/restaurants/${id}/dishes?page=${page}`
+  );
 
   return response.data.data;
 };
 
-export const useGetRestaurantsDishesQuery = (restaurantId: string) => {
-  return useQuery(
+export const useListAllRestaurantDishesQuery = (restaurantId: string) => {
+  return useInfiniteQuery(
     ["restaurant", restaurantId, "dishes"],
-    () => handler(restaurantId),
+    async ({ pageParam }) => {
+      return handler(restaurantId, pageParam);
+    },
     {
+      getNextPageParam: (lastPage, allPages) => {
+        if ((lastPage?.dishes.length || 0) < 10) {
+          return;
+        }
+
+        const nextPage = allPages.length + 1;
+        return nextPage;
+      },
       enabled: !!restaurantId,
     }
   );

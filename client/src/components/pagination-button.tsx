@@ -1,9 +1,11 @@
+import { Button } from "@/src/components";
 import { cn } from "@/src/lib";
-import { Button } from "../button";
 
 interface PaginationButtonProps {
   hasNextPage: boolean | undefined;
   isFetchingNextPage: boolean;
+  loadingText?: string;
+  noMoreText?: string;
   fetchNextPage: () => void;
 }
 
@@ -11,6 +13,8 @@ export const PaginationButton = ({
   fetchNextPage,
   hasNextPage = false,
   isFetchingNextPage,
+  loadingText = "Carregando...",
+  noMoreText = "Nenhum item a mais",
 }: PaginationButtonProps) => {
   const isDisabled = !hasNextPage || isFetchingNextPage;
 
@@ -29,10 +33,10 @@ export const PaginationButton = ({
         disabled={isDisabled}
       >
         {isFetchingNextPage
-          ? "Carregando..."
+          ? loadingText
           : hasNextPage
           ? "Carregar mais"
-          : "Nenhum restaurante a mais"}
+          : noMoreText}
       </Button>
     </>
   );
