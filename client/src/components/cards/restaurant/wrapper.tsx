@@ -25,7 +25,7 @@ export const Wrapper = ({
         onClick={() => push(`/restaurant/${restaurantId}`)}
         className="w-full text-left shadow-md duration-100 hover:-translate-y-1 hover:shadow-sm"
       >
-        <div className="w-full rounded-md bg-slate-800 p-4 ">{children}</div>
+        <div className="w-full rounded-md bg-slate-800 p-4">{children}</div>
       </button>
 
       <NewDishButton restaurantId={restaurantId} />
