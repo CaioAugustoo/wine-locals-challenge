@@ -5,6 +5,6 @@ interface TitleProps {
   totalDishes: number;
 }
 
-export const Title = ({ name, totalDishes }: TitleProps) => {
+export const Title = ({ name, totalDishes = 0 }: TitleProps) => {
   return <Heading title={name} description={`${totalDishes} pratos`} />;
 };
