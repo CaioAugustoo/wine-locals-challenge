@@ -17,10 +17,14 @@ export const PaginationButton = ({
     <>
       <button
         className={cn(
-          "mx-auto my-2 w-fit rounded-full bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-sm",
-          isDisabled ? "cursor-not-allowed opacity-50" : "hover:bg-yellow-700"
+          "mx-auto my-2 w-fit rounded-full  px-4 py-2 text-sm font-semibold text-white shadow-sm",
+          isDisabled ? "cursor-not-allowed opacity-50" : "bg-yellow-600"
         )}
-        onClick={() => fetchNextPage()}
+        onClick={() => {
+          if (!isDisabled) {
+            fetchNextPage();
+          }
+        }}
         disabled={isDisabled}
       >
         {isFetchingNextPage
