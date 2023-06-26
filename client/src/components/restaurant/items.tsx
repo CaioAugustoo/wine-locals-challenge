@@ -1,4 +1,4 @@
-import { Dish } from "@/src/types";
+import { Dish } from "@/types";
 import { DishCard } from "../cards/dish/dish";
 
 interface ItemsProps {

@@ -1,4 +1,4 @@
-import { FeedRestaurant } from "@/src/types";
+import { FeedRestaurant } from "@/types";
 
 interface TotalDishesProps {
   total: FeedRestaurant["_count"]["dish"];

@@ -1,4 +1,4 @@
-import { Restaurant } from "@/src/types";
+import { Restaurant } from "@/types";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { NewDishButton } from "./new-dish-button";

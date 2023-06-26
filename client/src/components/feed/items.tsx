@@ -1,4 +1,4 @@
-import { FeedRestaurant } from "@/src/types";
+import { FeedRestaurant } from "@/types";
 import { RestaurantCard } from "../cards";
 
 interface ItemsProps {

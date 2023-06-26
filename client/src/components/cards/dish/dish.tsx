@@ -1,4 +1,4 @@
-import { Dish } from "@/src/types";
+import { Dish } from "@/types";
 import { Description } from "./description";
 import { Header } from "./header";
 import { Wrapper } from "./wrapper";

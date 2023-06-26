@@ -1,4 +1,4 @@
-import { Button, Icons } from "@/src/components";
+import { Button, Icons } from "@/components";
 import { useParams, useRouter } from "next/navigation";
 
 export const CreateNewDishButton = () => {

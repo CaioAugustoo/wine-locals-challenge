@@ -1,5 +1,5 @@
-import { Icons } from "@/src/components";
-import { Restaurant } from "@/src/types";
+import { Icons } from "@/components";
+import { Restaurant } from "@/types";
 import { useRouter } from "next/navigation";
 
 interface NewDishButtonProps {

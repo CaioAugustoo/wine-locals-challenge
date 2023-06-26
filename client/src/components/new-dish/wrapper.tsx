@@ -1,4 +1,4 @@
-import { useFindRestaurantByIdQuery } from "@/src/hooks";
+import { useFindRestaurantByIdQuery } from "@/hooks";
 import { useParams } from "next/navigation";
 import { Empty } from "../empty";
 import { Heading } from "../heading";

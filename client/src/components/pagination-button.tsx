@@ -1,5 +1,5 @@
-import { Button } from "@/src/components";
-import { cn } from "@/src/lib";
+import { Button } from "@/components";
+import { cn } from "@/lib";
 
 interface PaginationButtonProps {
   hasNextPage: boolean | undefined;

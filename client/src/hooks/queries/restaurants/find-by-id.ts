@@ -1,5 +1,5 @@
-import { mainAdapter } from "@/src/infra";
-import { Restaurant } from "@/src/types";
+import { mainAdapter } from "@/infra";
+import { Restaurant } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 
 interface Response {

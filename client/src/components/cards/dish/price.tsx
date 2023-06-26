@@ -1,5 +1,5 @@
-import { Dish } from "@/src/types";
-import { formatCurrency } from "@/src/utils";
+import { Dish } from "@/types";
+import { formatCurrency } from "@/utils";
 
 interface PriceProps {
   price: Dish["price"];
