@@ -5,5 +5,9 @@ interface TotalDishesProps {
 }
 
 export const TotalDishes = ({ total }: TotalDishesProps) => {
-  return <span className="font-light">{total} pratos</span>;
+  return (
+    <span className="font-light">
+      {total} {total === 1 ? "Prato" : "Pratos"}
+    </span>
+  );
 };

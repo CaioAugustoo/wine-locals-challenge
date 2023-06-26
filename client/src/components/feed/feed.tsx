@@ -1,7 +1,7 @@
 import { useFeedRestaurants } from "@/src/hooks";
+import { PaginationButton } from "../pagination-button";
 import { Error } from "./error";
 import { Items } from "./items";
-import { PaginationButton } from "./pagination-button";
 import { Skeletons } from "./skeletons";
 import { Title } from "./title";
 

@@ -13,7 +13,6 @@ export const useFeedRestaurants = () => {
     data,
     isLoading,
     error,
-
     restaurants,
     totalCount,
     ...rest,

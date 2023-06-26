@@ -1,8 +1,11 @@
+import { Button } from "@/src/components";
 import { cn } from "@/src/lib";
 
 interface PaginationButtonProps {
   hasNextPage: boolean | undefined;
   isFetchingNextPage: boolean;
+  loadingText?: string;
+  noMoreText?: string;
   fetchNextPage: () => void;
 }
 
@@ -10,25 +13,31 @@ export const PaginationButton = ({
   fetchNextPage,
   hasNextPage = false,
   isFetchingNextPage,
+  loadingText = "Carregando...",
+  noMoreText = "Nenhum item para listar",
 }: PaginationButtonProps) => {
   const isDisabled = !hasNextPage || isFetchingNextPage;
 
   return (
     <>
-      <button
+      <Button
         className={cn(
-          "mx-auto my-2 w-fit rounded-full bg-yellow-600 px-4 py-2 text-sm font-semibold text-white shadow-sm",
-          isDisabled ? "cursor-not-allowed opacity-50" : "hover:bg-yellow-700"
+          "mx-auto my-2 rounded-full",
+          isDisabled ? "cursor-not-allowed opacity-50" : ""
         )}
-        onClick={() => fetchNextPage()}
+        onClick={() => {
+          if (!isDisabled) {
+            fetchNextPage();
+          }
+        }}
         disabled={isDisabled}
       >
         {isFetchingNextPage
-          ? "Carregando..."
+          ? loadingText
           : hasNextPage
           ? "Carregar mais"
-          : "Nenhum restaurante a mais"}
-      </button>
+          : noMoreText}
+      </Button>
     </>
   );
 };
