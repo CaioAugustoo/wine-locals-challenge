@@ -3,6 +3,7 @@ import {
   useGetRestaurantsDishesQuery,
 } from "@/src/hooks";
 import { useParams } from "next/navigation";
+import { CreateNewDishButton } from "./create-new-dish";
 import { Error } from "./error";
 import { Items } from "./items";
 import { Title } from "./title";
@@ -35,6 +36,8 @@ export const Restaurant = () => {
       {!!error && <Error />}
 
       <Items dishes={dishesData?.dishes ?? []} />
+
+      <CreateNewDishButton />
     </div>
   );
 };

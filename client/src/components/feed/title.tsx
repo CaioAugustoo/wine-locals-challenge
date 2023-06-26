@@ -1,4 +1,5 @@
-import { Heading } from "@/src/components";
+import { Button, Heading } from "@/src/components";
+import Link from "next/link";
 
 interface FeedTitleProps {
   totalCount: number;
@@ -6,9 +7,17 @@ interface FeedTitleProps {
 
 export const Title = ({ totalCount = 0 }: FeedTitleProps) => {
   return (
-    <Heading
-      title="Lugares"
-      description={`${totalCount} lugares cadastrados`}
-    />
+    <div className="flex items-center justify-between">
+      <div>
+        <Heading
+          title="Lugares"
+          description={`${totalCount} lugares cadastrados`}
+        />
+      </div>
+
+      <Button className="text-xs md:text-sm">
+        <Link href="/create-restaurant">Criar novo</Link>
+      </Button>
+    </div>
   );
 };

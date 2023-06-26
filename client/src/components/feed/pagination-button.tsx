@@ -1,4 +1,5 @@
 import { cn } from "@/src/lib";
+import { Button } from "../button";
 
 interface PaginationButtonProps {
   hasNextPage: boolean | undefined;
@@ -15,10 +16,10 @@ export const PaginationButton = ({
 
   return (
     <>
-      <button
+      <Button
         className={cn(
-          "mx-auto my-2 w-fit rounded-full  px-4 py-2 text-sm font-semibold text-white shadow-sm",
-          isDisabled ? "cursor-not-allowed opacity-50" : "bg-yellow-600"
+          "mx-auto my-2 rounded-full",
+          isDisabled ? "cursor-not-allowed opacity-50" : ""
         )}
         onClick={() => {
           if (!isDisabled) {
@@ -32,7 +33,7 @@ export const PaginationButton = ({
           : hasNextPage
           ? "Carregar mais"
           : "Nenhum restaurante a mais"}
-      </button>
+      </Button>
     </>
   );
 };
