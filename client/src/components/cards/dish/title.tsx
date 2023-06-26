@@ -1,4 +1,4 @@
-import { Dish } from "@/src/types";
+import { Dish } from "@/types";
 
 interface TitleProps {
   name: Dish["name"];

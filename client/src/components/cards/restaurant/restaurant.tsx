@@ -1,4 +1,4 @@
-import { FeedRestaurant } from "@/src/types";
+import { FeedRestaurant } from "@/types";
 import { Title } from "./title";
 import { TotalDishes } from "./total-dishes";
 import { Wrapper } from "./wrapper";

@@ -1,4 +1,4 @@
-import { Heading } from "@/src/components";
+import { Heading } from "@/components";
 
 interface TitleProps {
   name: string | undefined;

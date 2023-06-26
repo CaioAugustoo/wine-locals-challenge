@@ -1,4 +1,4 @@
-import { Empty } from "@/src/components";
+import { Empty } from "@/components";
 
 export const Error = () => {
   return (

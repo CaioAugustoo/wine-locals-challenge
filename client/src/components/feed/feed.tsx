@@ -1,4 +1,4 @@
-import { useFeedRestaurants } from "@/src/hooks";
+import { useFeedRestaurants } from "@/hooks";
 import { PaginationButton } from "../pagination-button";
 import { Error } from "./error";
 import { Items } from "./items";
@@ -27,11 +27,13 @@ export const Feed = () => {
           <Title totalCount={totalCount} />
           <Items restaurants={restaurants} />
 
-          <PaginationButton
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-          />
+          {restaurants.length >= 10 && (
+            <PaginationButton
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          )}
         </>
       )}
     </div>

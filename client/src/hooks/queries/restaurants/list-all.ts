@@ -1,5 +1,5 @@
-import { mainAdapter } from "@/src/infra";
-import { FeedRestaurant } from "@/src/types";
+import { mainAdapter } from "@/infra";
+import { FeedRestaurant } from "@/types";
 import {
   InfiniteData,
   useInfiniteQuery,

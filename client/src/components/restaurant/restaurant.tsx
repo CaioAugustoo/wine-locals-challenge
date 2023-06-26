@@ -1,4 +1,4 @@
-import { useFindRestaurantByIdQuery, useListAllDishes } from "@/src/hooks";
+import { useFindRestaurantByIdQuery, useListAllDishes } from "@/hooks";
 import { useParams } from "next/navigation";
 import { PaginationButton } from "../pagination-button";
 import { CreateNewDishButton } from "./create-new-dish";
@@ -43,11 +43,13 @@ export const Restaurant = () => {
           <Title name={data?.name} totalDishes={data?.totalDishes} />
           <Items dishes={dishes} />
 
-          <PaginationButton
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-          />
+          {dishes.length >= 10 && (
+            <PaginationButton
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isFetchingNextPage={isFetchingNextPage}
+            />
+          )}
           <CreateNewDishButton />
         </>
       )}

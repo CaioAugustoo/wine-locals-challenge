@@ -1,6 +1,6 @@
 "use client";
 
-import { Feed } from "@/src/components";
+import { Feed } from "@/components";
 
 export default function HomePage() {
   return <Feed />;
