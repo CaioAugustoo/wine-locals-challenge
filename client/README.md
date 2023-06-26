@@ -70,16 +70,9 @@ You may need some environment variables. Please check `.env.example` file if you
 
 ## Screenshots
 
-Create new restaurant:
 ![Create new restaurant](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/create_new_restaurant.png)
-
-Create new dish:
 ![Create new dish](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/create_new_restaurant_dish.png)
-
-Find restaurants:
 ![Find restaurants](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/feed_items.png)
-
-Find dishes from a restaurant:
 ![Find dishes from a restaurant](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/restaurant_dishes_feed.png)
 
 ## License
