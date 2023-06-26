@@ -12,14 +12,9 @@ export const createDishSchema = z
       .max(50, {
         message: "Máximo de 50 caracteres.",
       }),
-    price: z
-      .number({
-        required_error: "Campo obrigatório.",
-      })
-      .min(0, {
-        message: "Valor mínimo de R$ 0,00.",
-      }),
-
+    price: z.string({
+      required_error: "Campo obrigatório.",
+    }),
     description: z
       .string({
         required_error: "Campo obrigatório.",

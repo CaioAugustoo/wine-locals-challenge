@@ -8,7 +8,7 @@ interface TextAreaProps
   error?: string;
 }
 
-export const TextArea = React.forwardRef(
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ label, name, error, className, ...props }: TextAreaProps, ref) => {
     return (
       <div className="flex flex-col gap-2">
@@ -16,6 +16,7 @@ export const TextArea = React.forwardRef(
           {label}
         </label>
         <textarea
+          ref={ref}
           className={cn("rounded-md px-2 py-1.5 text-black", className)}
           id={name}
           {...props}
