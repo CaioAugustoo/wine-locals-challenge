@@ -3,6 +3,7 @@ import { cn } from "../lib";
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export const Button = ({
