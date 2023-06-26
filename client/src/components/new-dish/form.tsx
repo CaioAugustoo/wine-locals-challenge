@@ -1,20 +1,59 @@
 import { Button, Input, TextArea } from "@/components";
-import { CreateDish, createDishSchema } from "@/schemas";
+import { useCreateRestaurantDishMutation } from "@/hooks";
+import { CreateDishSchema, createDishSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { NumericFormat } from "react-number-format";
+import { InputAttributes, NumericFormat } from "react-number-format";
+import { toast } from "sonner";
+
+interface NumericFormatProps extends InputAttributes {
+  value: string;
+}
 
 export const Form = () => {
+  const { push } = useRouter();
+  const { id } = useParams();
+
   const {
     handleSubmit,
     register,
+    setValue,
     getValues,
     formState: { errors },
-  } = useForm<CreateDish>({
+  } = useForm<CreateDishSchema>({
     resolver: zodResolver(createDishSchema),
+    defaultValues: {
+      restaurantId: id,
+    },
   });
 
-  const onSubmit: SubmitHandler<CreateDish> = (data) => console.log(data);
+  const { mutateAsync, isLoading } = useCreateRestaurantDishMutation(
+    getValues()
+  );
+
+  const onSubmit: SubmitHandler<CreateDishSchema> = async (data) => {
+    try {
+      const cleanPrice = data.price
+        .toString()
+        .replace("R$ ", "")
+        .replace(".", "");
+
+      console.log(cleanPrice);
+
+      const parsedValues = {
+        ...data,
+        price: Number(cleanPrice),
+      };
+
+      await mutateAsync(parsedValues);
+
+      toast.success("Prato criado com sucesso");
+      push(`/restaurant/${id}`);
+    } catch (err) {
+      toast.error("Ocorreu um erro ao criar o prato");
+    }
+  };
 
   return (
     <form
@@ -22,10 +61,10 @@ export const Form = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <Input
-        {...register("name")}
         placeholder="Exemplo: X-Tudo"
         label="Nome do prato"
         error={errors.name?.message}
+        {...register("name")}
       />
 
       <NumericFormat
@@ -33,16 +72,20 @@ export const Form = () => {
         decimalSeparator=","
         prefix="R$ "
         allowNegative={false}
-        customInput={(props) => (
-          <Input
-            placeholder="R$ 120,00"
-            label="Valor"
-            className="w-[200px]"
-            error={errors?.price?.message}
-            {...register("price")}
-            {...props}
-          />
-        )}
+        customInput={(props: NumericFormatProps) => {
+          setValue("price", props.value);
+
+          return (
+            <Input
+              placeholder="R$ 120,00"
+              label="Valor"
+              className="w-[200px]"
+              error={errors?.price?.message}
+              {...register("price")}
+              {...props}
+            />
+          );
+        }}
       />
 
       <div>
@@ -58,8 +101,8 @@ export const Form = () => {
         </span>
       </div>
 
-      <Button type="submit" className="mt-5 w-full">
-        Salvar
+      <Button type="submit" className="mt-5 w-full" disabled={isLoading}>
+        {isLoading ? "Salvando..." : "Salvar"}
       </Button>
     </form>
   );
