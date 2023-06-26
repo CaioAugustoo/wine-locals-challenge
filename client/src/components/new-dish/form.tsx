@@ -1,6 +1,7 @@
 import { Button, Input, TextArea } from "@/components";
 import { useCreateRestaurantDishMutation } from "@/hooks";
 import { CreateDishSchema, createDishSchema } from "@/schemas";
+import { getMessageFromError } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -50,7 +51,7 @@ export const Form = () => {
       toast.success("Prato criado com sucesso");
       push(`/restaurant/${id}`);
     } catch (err) {
-      toast.error("Ocorreu um erro ao criar o prato");
+      toast.error(getMessageFromError(err));
     }
   };
 
