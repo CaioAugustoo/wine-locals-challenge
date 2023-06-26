@@ -1,7 +1,7 @@
 "use client";
 
-import { Header } from "@/src/components";
-import { cn, queryClient } from "@/src/lib";
+import { Header } from "@/components";
+import { cn, queryClient } from "@/lib";
 import "@/styles/globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "next/font/google";

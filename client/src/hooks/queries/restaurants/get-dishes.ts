@@ -1,5 +1,5 @@
-import { mainAdapter } from "@/src/infra";
-import { Dish } from "@/src/types";
+import { mainAdapter } from "@/infra";
+import { Dish } from "@/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 interface Response {

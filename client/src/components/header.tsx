@@ -1,6 +1,6 @@
 "use client";
 
-import { Icons, Logo } from "@/src/components";
+import { Icons, Logo } from "@/components";
 import { usePathname, useRouter } from "next/navigation";
 
 export const Header = () => {

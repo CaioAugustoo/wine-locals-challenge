@@ -1,5 +1,5 @@
-import { Button, Input, TextArea } from "@/src/components";
-import { CreateDish, createDishSchema } from "@/src/schemas";
+import { Button, Input, TextArea } from "@/components";
+import { CreateDish, createDishSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
@@ -39,8 +39,8 @@ export const Form = () => {
             label="Valor"
             className="w-[200px]"
             error={errors?.price?.message}
-            {...props}
             {...register("price")}
+            {...props}
           />
         )}
       />
