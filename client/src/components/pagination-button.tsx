@@ -14,7 +14,7 @@ export const PaginationButton = ({
   hasNextPage = false,
   isFetchingNextPage,
   loadingText = "Carregando...",
-  noMoreText = "Nenhum item a mais",
+  noMoreText = "Nenhum item para listar",
 }: PaginationButtonProps) => {
   const isDisabled = !hasNextPage || isFetchingNextPage;
 
