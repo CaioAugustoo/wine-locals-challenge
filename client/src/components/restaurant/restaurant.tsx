@@ -4,6 +4,7 @@ import { PaginationButton } from "../pagination-button";
 import { CreateNewDishButton } from "./create-new-dish";
 import { Error } from "./error";
 import { Items } from "./items";
+import { Skeletons } from "./skeleton";
 import { Title } from "./title";
 
 export const Restaurant = () => {
@@ -33,16 +34,23 @@ export const Restaurant = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Title name={data?.name} totalDishes={data?.totalDishes} />
-      <Items dishes={dishes} />
+      {isLoading && <Skeletons />}
+
       {!!error && <Error />}
 
-      <PaginationButton
-        fetchNextPage={fetchNextPage}
-        hasNextPage={hasNextPage}
-        isFetchingNextPage={isFetchingNextPage}
-      />
-      <CreateNewDishButton />
+      {!isLoading && !error && (
+        <>
+          <Title name={data?.name} totalDishes={data?.totalDishes} />
+          <Items dishes={dishes} />
+
+          <PaginationButton
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+          />
+          <CreateNewDishButton />
+        </>
+      )}
     </div>
   );
 };
