@@ -4,8 +4,8 @@ export const Error = () => {
   return (
     <Empty
       className="h-80"
-      title="Oops! Something went wrong"
-      description="Please try again later"
+      title="Ops! Algo deu errado."
+      description="Tente novamente mais tarde."
     />
   );
 };

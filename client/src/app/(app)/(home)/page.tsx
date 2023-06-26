@@ -2,6 +2,6 @@
 
 import { Feed } from "@/src/components";
 
-export default function Home() {
+export default function HomePage() {
   return <Feed />;
 }

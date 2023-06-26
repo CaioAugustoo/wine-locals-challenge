@@ -5,3 +5,4 @@ export * from "./header";
 export * from "./heading";
 export * from "./icons";
 export * from "./logo";
+export * from "./restaurant/restaurant";
