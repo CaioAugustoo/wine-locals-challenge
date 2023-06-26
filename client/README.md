@@ -1,34 +1,103 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Client
 
-## Getting Started
+Client is a Front-end application built with React.js and Next.js. It's a simple application that allows you to create and restaurants and dishes.
 
-First, run the development server:
+## Before you start
+
+Please make sure that you have [yarn](https://classic.yarnpkg.com/lang/en/docs/install/) installed in your machine.
+If you don't have installed it yet, please check [official yarn's website](https://classic.yarnpkg.com/lang/en/docs/install/)
+
+## Tech stack
+
+- React.js
+- Next.js
+- TypeScript
+- Zod
+  ...
+
+## Getting started
+
+As first step, you need to clone the repository. You can do it with:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+$ git clone https://github.com/CaioAugustoo/wine-locals-challenge.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You will get both `server` and `client` folders. Just run `cd client` in your terminal.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Now that you are inside `client` folder, you just need to run:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+$ make start
+```
 
-## Learn More
+or
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+$ ./scripts/start.sh
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+When you run the above command, it will perform some actions, such as:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Will check if `node_modules` folder exists
+- Install dependencies
+- Will check if `.env` file exists
+- Copy `.env.example` file to `.env` if doesn't exist yet
+- Run containers from `docker-compose.yml` file (you need to run Docker on pc)
+- Finally, start the project based in `NODE_ENV` property from `.env` file
 
-## Deploy on Vercel
+And that's it! Everything must be running well! Now you can have fun and send some requests at [http://localhost:3001](http://localhost:3001) :)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If you want to destroy everything, you can run the following command:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+$ make destroy
+```
+
+or
+
+```bash
+$ ./scripts/destroy.sh
+```
+
+When you run the above command, it will perform some actions, such as:
+
+- Delete all containers created previously
+- Delete `node_modules` folder
+
+## Environment Variables
+
+You may need some environment variables. Please check `.env.example` file if you think something is missing.
+
+## Screenshots
+
+Create new restaurant:
+![Create new restaurant](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/create_new_restaurant.png)
+
+Create new dish:
+![Create new dish](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/create_new_restaurant_dish.png)
+
+Find restaurants:
+![Find restaurants](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/feed_items.png)
+
+Find dishes from a restaurant:
+![Find dishes from a restaurant](https://github.com/CaioAugustoo/wine-locals-challenge/blob/master/screenshots/restaurant_dishes_feed.png)
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Authors
+
+- [@caioaugustoo](https://www.github.com/caioaugustoo)
+
+## Features
+
+- Find restaurants
+- Find dishes from a restaurant
+- Create dishes
+- Create restaurants
+
+## Support
+
+For support, email caioamfr@gmail.com
