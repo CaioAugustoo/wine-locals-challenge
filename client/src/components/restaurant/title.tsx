@@ -6,9 +6,5 @@ interface TitleProps {
 }
 
 export const Title = ({ name = "", totalDishes = 0 }: TitleProps) => {
-  return (
-    <div>
-      <Heading title={name} description={`${totalDishes} pratos`} />
-    </div>
-  );
+  return <Heading title={name} description={`${totalDishes} pratos`} />;
 };
