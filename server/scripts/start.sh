@@ -51,7 +51,13 @@ start_containers() {
     docker-compose up -d
 }
 
+push_migrations() {
+    echo "Pushing migrations"
+    yarn prisma db push
+}
+
 check_if_node_modules_exists
 check_if_env_file_exists
 start_containers
 start_based_on_environment
+push_migrations
