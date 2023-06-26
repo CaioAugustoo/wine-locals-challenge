@@ -43,7 +43,6 @@ When you run the above command, it will perform some actions, such as:
 - Install dependencies
 - Will check if `.env` file exists
 - Copy `.env.example` file to `.env` if doesn't exist yet
-- Run containers from `docker-compose.yml` file (you need to run Docker on pc)
 - Finally, start the project based in `NODE_ENV` property from `.env` file
 
 And that's it! Everything must be running well! Now you can have fun and send some requests at [http://localhost:3001](http://localhost:3001) :)
