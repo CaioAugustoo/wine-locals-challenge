@@ -1,18 +1,13 @@
-version: '3.6'
+version: '3.8'
 services:
-  landing:
+  nextjs:
     build:
-      context: "./"
-      dockerfile: Dockerfile
-    networks:
-      - ship
-    environment:
-      APP_ENV: development
+      context: ./
+      target: runner
     volumes:
-      - "./src:/app/src"
+      - .:/app
+    command: npm run dev
     ports:
-      - "3000:3000"
-
-networks:
-  ship:
-    name: ship_network
+      - "3003:3001"
+    environment:
+      NODE_ENV: development
