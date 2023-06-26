@@ -8,7 +8,7 @@ const Title = () => (
 const Cards = () =>
   Array.from({ length: 10 }).map((_, i) => (
     <div
-      className="h-20 w-full animate-pulse rounded-md bg-slate-800"
+      className="h-24 w-full animate-pulse rounded-md bg-slate-800"
       key={i}
     />
   ));
