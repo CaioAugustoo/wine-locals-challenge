@@ -37,7 +37,8 @@ export const Form = () => {
       const cleanPrice = data.price
         .toString()
         .replace("R$ ", "")
-        .replace(".", "");
+        .replaceAll(",", ".")
+        .replaceAll(".", "");
 
       console.log(cleanPrice);
 

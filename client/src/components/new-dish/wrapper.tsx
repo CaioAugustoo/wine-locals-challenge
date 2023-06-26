@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { Empty } from "../empty";
 import { Heading } from "../heading";
 import { Form } from "./form";
+import { Skeletons } from "./skeleton";
 
 export const NewDish = () => {
   const params = useParams();
@@ -19,8 +20,14 @@ export const NewDish = () => {
 
   return (
     <>
-      <Heading title={data?.name!} />
-      <Form />
+      {isLoading && <Skeletons />}
+
+      {!isLoading && (
+        <>
+          <Heading title={data?.name!} />
+          <Form />
+        </>
+      )}
     </>
   );
 };
