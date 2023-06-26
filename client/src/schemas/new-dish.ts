@@ -12,9 +12,14 @@ export const createDishSchema = z
       .max(50, {
         message: "Máximo de 50 caracteres.",
       }),
-    price: z.string({
-      required_error: "Campo obrigatório.",
-    }),
+    price: z.union([
+      z.string({
+        required_error: "Campo obrigatório.",
+      }),
+      z.number({
+        required_error: "Campo obrigatório.",
+      }),
+    ]),
     description: z
       .string({
         required_error: "Campo obrigatório.",
@@ -25,6 +30,9 @@ export const createDishSchema = z
       .max(200, {
         message: "Máximo de 200 caracteres.",
       }),
+    restaurantId: z.string({
+      required_error: "Campo obrigatório.",
+    }),
   })
   .strict();
 

@@ -5,6 +5,7 @@ import { cn, queryClient } from "@/lib";
 import "@/styles/globals.css";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "next/font/google";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,7 @@ export default function RootLayout({
         <QueryClientProvider client={queryClient}>
           <main className="container mx-auto px-6">
             <Header />
-
+            <Toaster />
             <div className="flex w-full flex-col py-5">{children}</div>
           </main>
         </QueryClientProvider>
