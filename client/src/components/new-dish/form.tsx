@@ -40,8 +40,6 @@ export const Form = () => {
         .replaceAll(",", ".")
         .replaceAll(".", "");
 
-      console.log(cleanPrice);
-
       const parsedValues = {
         ...data,
         price: Number(cleanPrice),
