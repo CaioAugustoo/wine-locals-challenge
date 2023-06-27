@@ -1,3 +1,4 @@
+import { PAGINATION_LIMIT } from "@/constants";
 import { useFeedRestaurants } from "@/hooks";
 import { PaginationButton } from "../pagination-button";
 import { Error } from "./error";
@@ -27,7 +28,7 @@ export const Feed = () => {
           <Title totalCount={totalCount} />
           <Items restaurants={restaurants} />
 
-          {restaurants.length >= 10 && (
+          {restaurants.length >= PAGINATION_LIMIT && (
             <PaginationButton
               fetchNextPage={fetchNextPage}
               hasNextPage={hasNextPage}
