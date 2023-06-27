@@ -1,6 +1,6 @@
 # Server
 
-Server is the entry point to every action. If we want to create a new restaurant, Server will send it and so on.
+Server is the entry point to every action. If we want to create a new restaurant, Server will create it and so on.
 
 ## Before you start
 
