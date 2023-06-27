@@ -1,3 +1,4 @@
+import { PAGINATION_LIMIT } from "@/constants";
 import { mainAdapter } from "@/infra";
 import { FeedRestaurant } from "@/types";
 import {
@@ -28,7 +29,7 @@ export const useListAllRestaurantsQuery = () => {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        if ((lastPage?.restaurants.length || 0) < 10) {
+        if ((lastPage?.restaurants.length || 0) < PAGINATION_LIMIT) {
           return;
         }
 
