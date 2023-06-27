@@ -1,3 +1,4 @@
+import { PAGINATION_LIMIT } from "@/constants";
 import { useFindRestaurantByIdQuery, useListAllDishes } from "@/hooks";
 import { useParams } from "next/navigation";
 import { PaginationButton } from "../pagination-button";
@@ -43,7 +44,7 @@ export const Restaurant = () => {
           <Title name={data?.name} totalDishes={data?.totalDishes} />
           <Items dishes={dishes} />
 
-          {dishes.length >= 10 && (
+          {dishes.length >= PAGINATION_LIMIT && (
             <PaginationButton
               fetchNextPage={fetchNextPage}
               hasNextPage={hasNextPage}

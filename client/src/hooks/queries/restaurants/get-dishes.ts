@@ -1,3 +1,4 @@
+import { PAGINATION_LIMIT } from "@/constants";
 import { mainAdapter } from "@/infra";
 import { Dish } from "@/types";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -23,7 +24,7 @@ export const useListAllRestaurantDishesQuery = (restaurantId: string) => {
     },
     {
       getNextPageParam: (lastPage, allPages) => {
-        if ((lastPage?.dishes.length || 0) < 10) {
+        if ((lastPage?.dishes.length || 0) < PAGINATION_LIMIT) {
           return;
         }
 
